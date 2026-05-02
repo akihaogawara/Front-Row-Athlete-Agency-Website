@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Front Row Athlete Agency — アスリートを文化・ファッション・メディアを横断するパブリックフィギュアとして次のステージへ。">
+  <title>Front Row Athlete Agency</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@300;400;500;600&family=Noto+Sans+JP:wght@300;400;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- ============================================================
+     NAVIGATION
+     ============================================================ -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    <img src="images/logo_fraa.png" alt="FRAA" class="nav-logo-img">
+    <span class="nav-logo-text">Front Row Athlete Agency</span>
+  </a>
+
+  <ul class="nav-links">
+    <li><a href="index.html">TOP</a></li>
+    <li><a href="athletes.html">Athletes</a></li>
+    <li><a href="sponsors.html">For Brands</a></li>
+    <li><a href="news.html">News &amp; Works</a></li>
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="company.html">Company</a></li>
+    <li><a href="contact.html" class="nav-cta">Contact</a></li>
+  </ul>
+  <button class="nav-hamburger" id="navHamburger" aria-label="メニュー">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <nav class="mobile-menu-nav">
+    <a href="index.html" class="mobile-menu-link">TOP</a>
+    <a href="athletes.html" class="mobile-menu-link">Athletes</a>
+    <a href="sponsors.html" class="mobile-menu-link">For Brands</a>
+    <a href="news.html" class="mobile-menu-link">News &amp; Works</a>
+    <a href="index.html#about" class="mobile-menu-link">About</a>
+    <a href="company.html" class="mobile-menu-link">Company</a>
+    <a href="contact.html" class="mobile-menu-link cta">Contact</a>
+  </nav>
+</div>
+
+<!-- ============================================================
+     HERO — SLIDESHOW
+     ============================================================ -->
+<section class="hero-framed">
+
+  <!-- 写真フレーム (border-radius + SideCutout SVG overlay) -->
+  <div class="hero-frame" id="heroSlideshow">
+
+    <!-- スライド -->
+    <div class="hero-slide hero-slide--video active">
+      <video class="hero-video" src="images/slide_video.mp4" poster="images/thumb_1.jpg" muted playsinline autoplay loop preload="auto"></video>
+    </div>
+    <div class="hero-slide hero-slide--video">
+      <video class="hero-video" src="images/slide_video3.mp4" poster="images/thumb_3.jpg" muted playsinline autoplay loop preload="auto"></video>
+    </div>
+    <div class="hero-slide hero-slide--video">
+      <video class="hero-video" src="images/slide_video2.mp4" poster="images/thumb_2.jpg" muted playsinline autoplay loop preload="auto"></video>
+    </div>
+    <div class="hero-slide hero-slide--video">
+      <video class="hero-video" src="images/slide_video4.mp4" poster="images/thumb_4.jpg" muted playsinline autoplay loop preload="auto"></video>
+    </div>
+
+    <!-- グラデーションオーバーレイ -->
+    <div class="hero-overlay"></div>
+
+    <!-- コンテンツ (左下) -->
+    <div class="hero-content">
+      <h1 class="hero-title">
+        Front Row<br>Athlete Agency
+      </h1>
+      <div class="hero-stats">
+        <div>
+          <span class="hero-stat-num mono">13+</span>
+          <div class="hero-stat-label">Athletes Worldwide</div>
+        </div>
+        <div>
+          <span class="hero-stat-num mono">3M+</span>
+          <div class="hero-stat-label">Combined Audience</div>
+        </div>
+        <div>
+          <span class="hero-stat-num mono">9</span>
+          <div class="hero-stat-label">Sports Represented</div>
+        </div>
+      </div>
+      <div class="hero-cta-group">
+        <a href="athletes.html" class="btn-primary">View Roster</a>
+        <a href="sponsors.html" class="btn-ghost">For Brands</a>
+        <a href="https://www.instagram.com/frontrowathleteagency/" target="_blank" rel="noopener" class="btn-ghost" style="padding:1rem;display:inline-flex;align-items:center;justify-content:center;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- プログレスバー -->
+    <div class="hero-progress"><div class="hero-progress-bar" id="heroProgressBar"></div></div>
+
+  </div><!-- /hero-frame -->
+
+
+  <!-- サムネイル (フレーム外・下部) -->
+  <div class="hero-thumb-strip" id="heroThumbnails">
+    <div class="hero-thumb active" onclick="heroGoTo(0)" style="background-image:url('images/thumb_1.jpg');background-size:cover;background-position:center;"></div>
+    <div class="hero-thumb" onclick="heroGoTo(1)" style="background-image:url('images/thumb_3.jpg');background-size:cover;background-position:center;"></div>
+    <div class="hero-thumb" onclick="heroGoTo(2)" style="background-image:url('images/thumb_2.jpg');background-size:cover;background-position:center;"></div>
+    <div class="hero-thumb" onclick="heroGoTo(3)" style="background-image:url('images/thumb_4.jpg');background-size:cover;background-position:center;"></div>
+  </div>
+
+</section>
+
+<!-- ============================================================
+     MARQUEE
+     ============================================================ -->
+<div class="marquee-section">
+  <div class="marquee-track">
+    <span class="marquee-item">X Games Champion</span>
+    <span class="marquee-item">Olympic Representative</span>
+    <span class="marquee-item">World Champion</span>
+    <span class="marquee-item">GoPro Award Winner</span>
+    <span class="marquee-item">WST World Ranker</span>
+    <span class="marquee-item">FISE Champion</span>
+    <span class="marquee-item">PWA World Ranker</span>
+    <span class="marquee-item">Next Heroine Golf Tour</span>
+    <span class="marquee-item">Red Bull Athlete</span>
+    <span class="marquee-item">Burton Athlete</span>
+    <span class="marquee-item">Specialized Global Ambassador</span>
+  </div>
+</div>
+
+<!-- ============================================================
+     RESULTS SINCE LAUNCH
+     ============================================================ -->
+<section class="section">
+  <div class="section-label">About FRAA</div>
+  <h2 class="section-title">Results by <span class="accent">the Numbers</span></h2>
+  <p class="section-subtitle" style="font-family:'Noto Sans JP',sans-serif;font-style:normal;">
+    数字で見るFRAA
+  </p>
+
+  <div class="results-grid fade-in">
+    <div class="result-card">
+      <div class="result-num mono" data-count="13" data-suffix="+">13+</div>
+      <div class="result-label">Athletes Worldwide</div>
+      <div class="result-note">契約選手</div>
+    </div>
+    <div class="result-card">
+      <div class="result-num mono" data-count="3" data-suffix="M+">3M+</div>
+      <div class="result-label">Combined Audience</div>
+      <div class="result-note">300万人を超えるフォロワー</div>
+    </div>
+    <div class="result-card">
+      <div class="result-num mono" data-count="9">9</div>
+      <div class="result-label">Sports Represented</div>
+      <div class="result-note">競技</div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ============================================================
+     ATHLETES PREVIEW
+     ============================================================ -->
+<section class="athletes-section">
+  <div class="athletes-inner">
+    <div style="display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 3rem; flex-wrap: wrap; gap: 1rem;">
+      <div>
+        <div class="section-label">Our Roster</div>
+        <h2 class="section-title" style="margin-bottom: 0;">The <span class="accent">Athletes</span></h2>
+      </div>
+      <a href="athletes.html" class="btn-ghost" style="flex-shrink:0;">View All 13 →</a>
+    </div>
+
+    <div class="athletes-filters">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="snowboard">Snowboard</button>
+      <button class="filter-btn" data-filter="skateboard">Skateboard</button>
+      <button class="filter-btn" data-filter="golf">Golf</button>
+      <button class="filter-btn" data-filter="soccer">Soccer</button>
+      <button class="filter-btn" data-filter="bmx">BMX</button>
+      <button class="filter-btn" data-filter="windsurf">Windsurf</button>
+      <button class="filter-btn" data-filter="contents-creator">Contents Creator</button>
+    </div>
+
+    <div class="athletes-grid">
+
+      <!-- 大塚 健 -->
+      <a href="athletes.html#otsuka" class="athlete-card" data-sport="snowboard">
+        <div class="athlete-card-placeholder" style="background-image:url('images/athlete_otsuka.jpg');background-size:cover;background-position:center top;"></div>
+        <div class="athlete-card-overlay">
+          <span class="athlete-card-sport">Snowboard · Big Air / Backcountry</span>
+          <div class="athlete-card-name-en">Takeru Otsuka</div>
+          <div class="athlete-card-name-jp">大塚 健</div>
+          <div class="athlete-card-tagline">X Games 2連覇を果たした史上最年少メダリスト</div>
+        </div>
+      </a>
+
+      <!-- 鬼塚 雅 -->
+      <a href="athletes.html#onitsuka" class="athlete-card" data-sport="snowboard">
+        <div class="athlete-card-placeholder" style="background-image:url('images/athlete_onitsuka.jpg');background-size:cover;background-position:center top;"></div>
+        <div class="athlete-card-overlay">
+          <span class="athlete-card-sport">Snowboard · Big Air / Slope Style</span>
+          <div class="athlete-card-name-en">Miyabi Onitsuka</div>
+          <div class="athlete-card-name-jp">鬼塚 雅</div>
+          <div class="athlete-card-tagline">2度の五輪出場に加え、メダル数は世界選手権が5つ、W杯が16、X Gamesが4つと長年に渡り日本のシーンを牽引してきたスーパーライダー</div>
+        </div>
+      </a>
+
+      <!-- Cool Wakushima -->
+      <a href="athletes.html#wakushima" class="athlete-card" data-sport="snowboard">
+        <div class="athlete-card-placeholder" style="background-image:url('images/athlete_wakushima.jpg');background-size:cover;background-position:center top;"></div>
+        <div class="athlete-card-overlay">
+          <span class="athlete-card-sport">Snowboard · Big Air / Slope Style</span>
+          <div class="athlete-card-name-en">Cool Wakushima</div>
+          <div class="athlete-card-name-jp">ワクシマ クール</div>
+          <div class="athlete-card-tagline">幼少期にニュージーランドに移住し、ニュージーランド代表として五輪に出場</div>
+        </div>
+      </a>
+
+      <!-- 仲田 歩夢 -->
+      <a href="athletes.html#nakada" class="athlete-card" data-sport="soccer">
+        <div class="athlete-card-placeholder" style="background-image:url('images/athlete_nakada.jpg');background-size:cover;background-position:center top;"></div>
+        <div class="athlete-card-overlay">
+          <span class="athlete-card-sport">Soccer · WE League</span>
+          <div class="athlete-card-name-en">Ayu Nakada</div>
+          <div class="athlete-card-name-jp">仲田 歩夢</div>
+          <div class="athlete-card-tagline">WE LEAGUEの美しすぎるプロサッカー選手</div>
+        </div>
+      </a>
+
+      <!-- 志治 群青 -->
+      <a href="athletes.html#shiji" class="athlete-card" data-sport="skateboard">
+        <div class="athlete-card-placeholder" style="background-image:url('images/athlete_shiji.jpg');background-size:cover;background-position:center top;"></div>
+        <div class="athlete-card-overlay">
+          <span class="athlete-card-sport">Skateboard · Park</span>
+          <div class="athlete-card-name-en">Gunjo Shiji</div>
+          <div class="athlete-card-name-jp">志治 群青</div>
+          <div class="athlete-card-tagline">13歳にして日本オープン優勝、14歳で日本選手権を準優勝した、今最も勢いのあるスケートボーダー</div>
+        </div>
+      </a>
+
+      <!-- 岸 勇希 -->
+      <a href="athletes.html#kishi" class="athlete-card" data-sport="bmx">
+        <div class="athlete-card-placeholder" style="background-image:url('images/athlete_kishi.jpg');background-size:cover;background-position:center top;"></div>
+        <div class="athlete-card-overlay">
+          <span class="athlete-card-sport">Street Trial · BMX</span>
+          <div class="athlete-card-name-en">Yuki Kishi</div>
+          <div class="athlete-card-name-jp">岸 勇希</div>
+          <div class="athlete-card-tagline">ストリートトライアルで唯一のSpecializedグローバルアンバサダー</div>
+        </div>
+      </a>
+
+      <!-- 星野 瑠菜 -->
+      <a href="athletes.html#hoshino" class="athlete-card" data-sport="golf">
+        <div class="athlete-card-placeholder" style="background-image:url('images/athlete_hoshino.jpg');background-size:cover;background-position:center top;"></div>
+        <div class="athlete-card-overlay">
+          <span class="athlete-card-sport">Golf · Next Heroine Tour</span>
+          <div class="athlete-card-name-en">Luna Hoshino</div>
+          <div class="athlete-card-name-jp">星野 瑠菜</div>
+          <div class="athlete-card-tagline">ベストスコア63</div>
+        </div>
+      </a>
+
+      <!-- Mane Yousuf -->
+      <a href="athletes.html#yousuf" class="athlete-card" data-sport="contents-creator">
+        <div class="athlete-card-placeholder" style="background-image:url('images/athlete_yousuf.jpg');background-size:cover;background-position:center top;"></div>
+        <div class="athlete-card-overlay">
+          <span class="athlete-card-sport">Contents Creator</span>
+          <div class="athlete-card-name-en">Mane Yousuf</div>
+          <div class="athlete-card-name-jp">マネ・ユーサフ</div>
+          <div class="athlete-card-tagline">TikTok 150万フォロワー、YouTube 86万登録</div>
+        </div>
+      </a>
+
+      <!-- Max Berguin -->
+      <a href="athletes.html#berguin" class="athlete-card" data-sport="skateboard">
+        <div class="athlete-card-placeholder" style="background-image:url('images/athlete_berguin.jpg');background-size:cover;background-position:center top;"></div>
+        <div class="athlete-card-overlay">
+          <span class="athlete-card-sport">Skateboard · Street</span>
+          <div class="athlete-card-name-en">Max Berguin</div>
+          <div class="athlete-card-name-jp">マックス・ベルギャン</div>
+          <div class="athlete-card-tagline">フランス代表・欧州ユースオリンピック金メダルのスケートボーダー</div>
+        </div>
+      </a>
+
+      <!-- 竹内 悠貴 -->
+      <a href="athletes.html#takeuchi" class="athlete-card" data-sport="snowboard">
+        <div class="athlete-card-placeholder" style="background-image:url('images/athlete_takeuchi.jpg');background-size:cover;background-position:center top;"></div>
+        <div class="athlete-card-overlay">
+          <span class="athlete-card-sport">Snowboard · Freeride</span>
+          <div class="athlete-card-name-en">Haruki Takeuchi</div>
+          <div class="athlete-card-name-jp">竹内 悠貴</div>
+          <div class="athlete-card-tagline">2025年FWQシーズン国内1位・世界9位</div>
+        </div>
+      </a>
+
+      <!-- 山岸 建矢 -->
+      <a href="athletes.html#yamagishi" class="athlete-card" data-sport="contents-creator">
+        <div class="athlete-card-placeholder" style="background-image:url('images/athlete_yamagishi.jpg');background-size:cover;background-position:center top;"></div>
+        <div class="athlete-card-overlay">
+          <span class="athlete-card-sport">Ski · Film</span>
+          <div class="athlete-card-name-en">Tatsuya Yamagishi</div>
+          <div class="athlete-card-name-jp">山岸 建矢</div>
+          <div class="athlete-card-tagline">フィルマーとしてGoPro Awardの受賞経験もある二刀流スキーヤー</div>
+        </div>
+      </a>
+
+      <!-- 杉 匠真 -->
+      <a href="athletes.html#sugi" class="athlete-card" data-sport="windsurf">
+        <div class="athlete-card-placeholder" style="background-image:url('images/athlete_sugi.jpg');background-size:cover;background-position:center;"></div>
+        <div class="athlete-card-overlay">
+          <span class="athlete-card-sport">Windsurf · Wave</span>
+          <div class="athlete-card-name-en">Takuma Sugi</div>
+          <div class="athlete-card-name-jp">杉 匠真</div>
+          <div class="athlete-card-tagline">U-17・U-20世界王者</div>
+        </div>
+      </a>
+
+      <!-- 西本 成良 -->
+      <a href="athletes.html#nishimoto" class="athlete-card" data-sport="contents-creator">
+        <div class="athlete-card-placeholder" style="background-image:url('images/athlete_nishimoto.jpg');background-size:cover;background-position:center top;"></div>
+        <div class="athlete-card-overlay">
+          <span class="athlete-card-sport">Street Kendama</span>
+          <div class="athlete-card-name-en">Naru Nishimoto</div>
+          <div class="athlete-card-name-jp">西本 成良</div>
+          <div class="athlete-card-tagline">けん玉ワールドカップ世代別 2連覇中のストリートけん玉プレーヤー</div>
+        </div>
+      </a>
+
+    </div><!-- /athletes-grid -->
+  </div>
+</section>
+
+<!-- ============================================================
+     FOR BRANDS / FOR ATHLETES SPLIT
+     ============================================================ -->
+<section class="section-full" style="background: var(--void);">
+  <div class="athletes-inner">
+    <div class="split-layout">
+
+      <!-- FOR BRANDS -->
+      <div class="split-panel">
+        <span class="split-panel-tag">01 — For Brands</span>
+        <h2 class="split-panel-title">Brand<br><span style="color: var(--lime);">Partnership.</span></h2>
+        <p class="split-panel-body">
+          スポーツシーンだけでなく、カルチャー・ファッション・ライフスタイル・社会活動を牽引するアスリートが、ブランドのメッセージを届けます。
+        </p>
+        <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-top:auto;">
+          <a href="sponsors.html" class="btn-primary">For Brands →</a>
+          <a href="athletes.html" class="btn-ghost">View Roster →</a>
+        </div>
+      </div>
+
+      <!-- FOR ATHLETES -->
+      <div class="split-panel" style="border-left: 1px solid var(--gray-2);">
+        <span class="split-panel-tag">02 — For Athletes</span>
+        <h2 class="split-panel-title">Beyond the<br><span style="color: var(--lime);">Medal.</span></h2>
+        <p class="split-panel-body">
+          オンコートだけでなく、オフコートでの野望も叶える戦略を共に描きます。
+        </p>
+        <a href="contact.html?track=athlete" class="btn-ghost" style="margin-top: auto;">Join the Roster →</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     FOUNDER
+     ============================================================ -->
+<section class="founder-section" id="about">
+  <div class="founder-inner">
+    <div class="founder-visual">
+      <img src="images/founder_akiha.jpg" alt="Akiha Ogawara" style="width: 100%; height: 100%; object-fit: cover; display: block; border-radius: var(--r-lg);">
+      <div class="founder-visual-tag">CEO · Founder</div>
+    </div>
+
+    <div class="founder-content">
+      <div class="founder-title">Akiha Ogawara · 小河原 明葉</div>
+      <h2 class="founder-name-en">The Agency<br>Built by<br><span style="color: var(--lime);">Someone<br>Inside.</span></h2>
+      <div class="founder-name-jp">代表取締役CEO</div>
+
+      <p class="founder-bio">
+        幼少期〜高校をニューヨーク・ロサンゼルスで過ごす。慶應義塾大学在学中ながら、Red Bull Japanでアスリートマーケティング職の正社員としてキャリアをスタート。大学卒業後はPwCコンサルティングにて経営コンサルティングに従事。JBA公認エージェント。
+      </p>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     CONTACT CTA
+     ============================================================ -->
+<section class="contact-cta-section">
+  <div class="contact-cta-inner">
+    <div class="section-label">Get In Touch</div>
+    <h2 class="section-title">Let's <span class="accent">Talk.</span></h2>
+    <p class="section-subtitle">お問い合わせ窓口</p>
+
+    <div class="contact-tracks">
+
+      <a href="contact.html?track=brand" class="contact-track" data-track="brand">
+        <div class="contact-track-num">01</div>
+        <div class="contact-track-title">For Brands</div>
+        <p class="contact-track-sub italic-serif">
+          スポンサーシップ・パートナーシップ・アクティベーションのご相談
+        </p>
+        <div class="contact-track-action">Start a Partnership</div>
+      </a>
+
+      <a href="contact.html?track=athlete" class="contact-track" data-track="athlete">
+        <div class="contact-track-num">02</div>
+        <div class="contact-track-title">For Athletes</div>
+        <p class="contact-track-sub italic-serif">
+          マネジメント契約のお問い合わせ
+        </p>
+        <div class="contact-track-action">Join Our Roster</div>
+      </a>
+
+      <a href="contact.html?track=press" class="contact-track" data-track="press">
+        <div class="contact-track-num">03</div>
+        <div class="contact-track-title">Press & Media</div>
+        <p class="contact-track-sub italic-serif">
+          取材に関するお問い合わせ
+        </p>
+        <div class="contact-track-action">Media Inquiry</div>
+      </a>
+
+    </div>
+
+    <p class="contact-response-note">
+      We respond to all inquiries within <span>48 hours</span>.
+    </p>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand-name">Front Row Athlete Agency</div>
+      </div>
+
+      <div>
+        <div class="footer-col-title">Navigate</div>
+        <ul class="footer-links">
+          <li><a href="athletes.html">Athletes</a></li>
+          <li><a href="sponsors.html">For Brands</a></li>
+          <li><a href="news.html">News &amp; Works</a></li>
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="company.html">Company</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="footer-col-title">Sports</div>
+        <ul class="footer-links">
+          <li><a href="athletes.html?sport=snowboard">Snowboard</a></li>
+          <li><a href="athletes.html?sport=ski">Ski</a></li>
+          <li><a href="athletes.html?sport=windsurf">Windsurf</a></li>
+          <li><a href="athletes.html?sport=skate">Skateboard</a></li>
+          <li><a href="athletes.html?sport=other">More</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="footer-col-title">Legal</div>
+        <ul class="footer-links">
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Use</a></li>
+        </ul>
+        <div style="margin-top: 1.5rem;">
+          <div class="footer-col-title">Address</div>
+          <p style="font-size: 0.78rem; color: rgba(245,242,238,0.4); line-height: 1.7; font-family: 'Noto Sans JP', sans-serif;">
+            東京都港区南青山5-15-9<br>
+            フラット青山301
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="footer-copy">
+        © 2025 株式会社 Front Row Athlete Agency. All rights reserved.
+      </div>
+      <div class="footer-socials">
+        <a href="https://www.instagram.com/frontrowathleteagency/" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://frontrowathleteagency.com" target="_blank" rel="noopener">Official Site</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

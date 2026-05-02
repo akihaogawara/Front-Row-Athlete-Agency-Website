@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Front Row Athlete Agency — Our Roster. 13 athletes across snowboard, ski, windsurf, skateboard and more.">
+  <title>Athletes — Front Row Athlete Agency</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@300;400;500;600&family=Noto+Sans+JP:wght@300;400;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    .athlete-full-card {
+      background: var(--gray-1);
+      border: 1px solid var(--gray-2);
+      border-radius: var(--r-lg);
+      overflow: hidden;
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+    }
+    .athlete-full-card:hover { border-color: rgba(255,255,255,0.3); }
+
+    .afc-visual {
+      aspect-ratio: 3/2;
+      background: var(--gray-2);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .afc-initials {
+      font-family: 'Archivo Black', sans-serif;
+      font-size: 5rem;
+      color: rgba(154,205,50,0.12);
+    }
+    .afc-sport-badge {
+      position: absolute;
+      top: 1rem; left: 1rem;
+      background: rgba(10,10,10,0.85);
+      border: 1px solid rgba(154,205,50,0.3);
+      border-radius: var(--r-pill);
+      font-family: 'Fira Code', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.18em;
+      color: var(--lime);
+      padding: 0.3rem 0.75rem;
+      text-transform: uppercase;
+    }
+
+    .afc-body { padding: 1.75rem; display: flex; flex-direction: column; flex: 1; }
+
+    .afc-name-en {
+      font-family: 'Archivo Black', sans-serif;
+      font-size: 1.4rem;
+      line-height: 1.1;
+      margin-bottom: 0.2rem;
+    }
+    .afc-name-jp {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 0.85rem;
+      color: rgba(245,242,238,0.5);
+      margin-bottom: 0.75rem;
+    }
+    .afc-tagline {
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      color: rgba(245,242,238,0.55);
+      line-height: 1.5;
+      margin-bottom: 1.25rem;
+      padding-bottom: 1.25rem;
+      border-bottom: 1px solid var(--gray-2);
+    }
+
+    .afc-metrics {
+      display: flex;
+      gap: 1.5rem;
+      margin-bottom: 1.25rem;
+    }
+    .afc-metric-val {
+      font-family: 'Fira Code', monospace;
+      font-size: 1.1rem;
+      color: var(--lime);
+    }
+    .afc-metric-key {
+      font-size: 0.62rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gray-4);
+      margin-top: 0.1rem;
+    }
+    .afc-metric-key-jp {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 0.6rem;
+      color: var(--gray-4);
+      margin-top: 0.15rem;
+      line-height: 1.4;
+    }
+
+    .afc-achievements {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      margin-bottom: 1.5rem;
+      flex: 1;
+    }
+    .afc-achievements li {
+      font-size: 0.78rem;
+      color: rgba(245,242,238,0.6);
+      display: flex;
+      gap: 0.6rem;
+    }
+    .afc-achievements li::before { content: '→'; color: var(--lime); flex-shrink: 0; }
+
+    .afc-sponsors {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 1.5rem;
+    }
+    .afc-sponsor-tag {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      padding: 0.25rem 0.6rem;
+      border: 1px solid var(--gray-2);
+      border-radius: var(--r-sm);
+      color: var(--gray-4);
+      text-transform: uppercase;
+    }
+
+    .afc-open-cats {
+      background: rgba(154,205,50,0.05);
+      border: 1px solid rgba(154,205,50,0.2);
+      padding: 0.75rem 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .afc-open-cats-label {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.18em;
+      color: var(--lime);
+      text-transform: uppercase;
+      margin-bottom: 0.4rem;
+    }
+    .afc-open-cats-list {
+      font-size: 0.75rem;
+      color: rgba(245,242,238,0.65);
+    }
+
+    .afc-cta {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: auto;
+    }
+    .afc-cta a {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 0.6rem 1.2rem;
+      transition: var(--transition);
+    }
+    .afc-cta-primary {
+      background: var(--lime);
+      color: var(--void);
+      border-radius: var(--r-pill);
+    }
+    .afc-cta-primary:hover { opacity: 0.85; }
+    .afc-cta-ghost {
+      background: var(--gray-2);
+      border: 1px solid var(--gray-2);
+      color: var(--cream);
+      border-radius: var(--r-pill);
+    }
+    .afc-cta-ghost:hover { background: var(--gray-1); border-color: rgba(245,242,238,0.4); color: var(--white); }
+    .afc-ig-link { margin-bottom: 0.5rem; }
+    .afc-ig-link a { display: flex; align-items: center; gap: 0.4rem; font-family: 'Fira Code', monospace; font-size: 0.7rem; color: rgba(245,242,238,0.6); text-decoration: none; transition: color 0.2s; }
+    .afc-ig-link a:hover { color: var(--lime); }
+    .afc-ig-link svg { flex-shrink: 0; }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    <img src="images/logo_fraa.png" alt="FRAA" class="nav-logo-img">
+    <span class="nav-logo-text">Front Row Athlete Agency</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">TOP</a></li>
+    <li><a href="athletes.html" style="color: var(--lime);">Athletes</a></li>
+    <li><a href="sponsors.html">For Brands</a></li>
+    <li><a href="news.html">News &amp; Works</a></li>
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="company.html">Company</a></li>
+    <li><a href="contact.html" class="nav-cta">Contact</a></li>
+  </ul>
+  <button class="nav-hamburger" id="navHamburger" aria-label="メニュー">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <nav class="mobile-menu-nav">
+    <a href="index.html" class="mobile-menu-link">TOP</a>
+    <a href="athletes.html" class="mobile-menu-link">Athletes</a>
+    <a href="sponsors.html" class="mobile-menu-link">For Brands</a>
+    <a href="news.html" class="mobile-menu-link">News &amp; Works</a>
+    <a href="index.html#about" class="mobile-menu-link">About</a>
+    <a href="company.html" class="mobile-menu-link">Company</a>
+    <a href="contact.html" class="mobile-menu-link cta">Contact</a>
+  </nav>
+</div>
+
+<!-- PAGE HERO -->
+<div class="athletes-page-hero">
+  <div class="section-label">Our Client Athletes</div>
+  <h1 class="section-title" style="font-size: clamp(3.5rem, 7vw, 7rem); margin-bottom: 1rem;">
+    The <span class="accent">Athletes</span>
+  </h1>
+
+  <!-- Filters -->
+  <div class="athletes-filters">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="snowboard">Snowboard</button>
+    <button class="filter-btn" data-filter="skateboard">Skateboard</button>
+    <button class="filter-btn" data-filter="golf">Golf</button>
+    <button class="filter-btn" data-filter="soccer">Soccer</button>
+    <button class="filter-btn" data-filter="bmx">BMX</button>
+    <button class="filter-btn" data-filter="windsurf">Windsurf</button>
+    <button class="filter-btn" data-filter="contents-creator">Contents Creator</button>
+  </div>
+</div>
+
+<!-- ATHLETES GRID (3 column full cards) -->
+<div class="athletes-page-grid">
+
+  <!-- 大塚 健 -->
+  <div class="athlete-full-card" id="otsuka" data-sport="snowboard">
+    <div class="afc-visual" style="background-image:url('images/athlete_otsuka.jpg');background-size:cover;background-position:center 15%;">
+      <div class="afc-sport-badge">Snowboard · Big Air / Backcountry</div>
+    </div>
+    <div class="afc-body">
+      <div class="afc-name-en">Takeru Otsuka</div>
+      <div class="afc-name-jp">大塚 健</div>
+      <div class="afc-ig-link"><a href="https://www.instagram.com/takeru_otsuka/" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/></svg>@takeru_otsuka</a></div>
+      <p class="afc-tagline">X Games 2連覇を果たした史上最年少メダリスト。W杯では2度の金メダルに輝き、北京五輪で大会最高得点を記録。現在はバックカントリーを主戦場に移し、日本人2人目となるナチュラルセレクションの予選に出場するなど、日本人ライダーが少ないコアなシーンで活躍中</p>
+      <div class="afc-metrics">
+        <div>
+          <div class="afc-metric-val">2×</div>
+          <div class="afc-metric-key-jp">度のX GAMES優勝</div>
+          <div class="afc-metric-key">Golds</div>
+        </div>
+        <div>
+          <div class="afc-metric-val">2022</div>
+          <div class="afc-metric-key-jp">北京五輪出場/大会最高得点</div>
+          <div class="afc-metric-key">Olympian</div>
+        </div>
+      </div>
+      <ul class="afc-achievements">
+        <li>X Games史上最年少メダリスト・制覇。その後2連覇を果たす</li>
+        <li>W杯メダル獲得数は、金メダル×2、銀メダル×2</li>
+        <li>2022年北京五輪出場。ビッグエアで大会最高得点をマーク</li>
+        <li>現在はバックカントリーを主軸に活動し、日本人が到達したことのない領域の最高峰を目指す</li>
+      </ul>
+      <div class="afc-sponsors">
+        <span class="afc-sponsor-tag">Red Bull</span>
+        <span class="afc-sponsor-tag">Burton</span>
+        <span class="afc-sponsor-tag">G-SHOCK</span>
+        <span class="afc-sponsor-tag">Oakley</span>
+        <span class="afc-sponsor-tag">Murasaki</span>
+      </div>
+      <div class="afc-cta">
+        <a href="contact.html?track=brand&athlete=otsuka" class="afc-cta-primary">Contact</a>
+        <a href="athlete/otsuka-takeru.html" class="afc-cta-ghost">Profile →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 鬼塚 雅 -->
+  <div class="athlete-full-card" id="onitsuka" data-sport="snowboard">
+    <div class="afc-visual" style="background-image:url('images/athlete_onitsuka.jpg');background-size:cover;background-position:center top;">
+      <div class="afc-sport-badge">Snowboard · Big Air / Slope Style</div>
+    </div>
+    <div class="afc-body">
+      <div class="afc-name-en">Miyabi Onitsuka</div>
+      <div class="afc-name-jp">鬼塚 雅</div>
+      <div class="afc-ig-link"><a href="https://www.instagram.com/miyabionitsuka/" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/></svg>@miyabionitsuka</a></div>
+      <p class="afc-tagline">2度の五輪出場に加え、メダル数は世界選手権が5つ、W杯が16、X Gamesが4つと長年に渡り日本のシーンを牽引してきたスーパーライダー。茨城県境町の地域おこし協力隊としてSAKAIビッグエアパークの監修を務めるなど、大会以外でも業界の発展に大きく寄与している</p>
+      <div class="afc-metrics">
+        <div>
+          <div class="afc-metric-val">2×</div>
+          <div class="afc-metric-key-jp">五輪出場</div>
+          <div class="afc-metric-key">Olympics</div>
+        </div>
+        <div>
+          <div class="afc-metric-val">16yo</div>
+          <div class="afc-metric-key-jp">歳で世界制覇</div>
+          <div class="afc-metric-key">World Champion</div>
+        </div>
+      </div>
+      <ul class="afc-achievements">
+        <li>平昌・北京五輪出場（ビッグエア・スロープスタイル）</li>
+        <li>世界選手権・スロープスタイルを、男女通じて当時の史上最年少となる16歳で制覇</li>
+        <li>獲得メダル数は世界選手権で5つ、W杯で16、X Gamesが4つ</li>
+        <li>茨城県境町のビッグエアパークの監修・プロデュースを手掛け、地域おこし協力隊としても活動</li>
+      </ul>
+      <div class="afc-sponsors">
+        <span class="afc-sponsor-tag">ISPS</span>
+        <span class="afc-sponsor-tag">Red Bull</span>
+        <span class="afc-sponsor-tag">ARTISTIC&amp;CO.</span>
+        <span class="afc-sponsor-tag">F.JANCK</span>
+        <span class="afc-sponsor-tag">ようきペットクリニック</span>
+        <span class="afc-sponsor-tag">再春館製薬所</span>
+        <span class="afc-sponsor-tag">Nitro USA</span>
+        <span class="afc-sponsor-tag">Powster</span>
+        <span class="afc-sponsor-tag">CW-X</span>
+        <span class="afc-sponsor-tag">SWIX</span>
+        <span class="afc-sponsor-tag">スリックハウス</span>
+        <span class="afc-sponsor-tag">Global WiFi</span>
+      </div>
+      <div class="afc-cta">
+        <a href="contact.html?track=brand&athlete=onitsuka" class="afc-cta-primary">Contact</a>
+        <a href="athlete/onitsuka-miyabi.html" class="afc-cta-ghost">Profile →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cool Wakushima -->
+  <div class="athlete-full-card" id="wakushima" data-sport="snowboard">
+    <div class="afc-visual" style="background-image:url('images/athlete_wakushima.jpg');background-size:cover;background-position:center 15%;">
+      <div class="afc-sport-badge">Snowboard · Big Air / Slope Style</div>
+    </div>
+    <div class="afc-body">
+      <div class="afc-name-en">Cool Wakushima</div>
+      <div class="afc-name-jp">ワクシマ クール</div>
+      <div class="afc-ig-link"><a href="https://www.instagram.com/coolwakushima/" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/></svg>@coolwakushima</a></div>
+      <p class="afc-tagline">幼少期にニュージーランドに移住し、ニュージーランド代表として五輪に出場。強みはスロープスタイルでの技術力。オフコートでは、スノーボードを通じた女性躍進を啓蒙する活動に参画</p>
+      <div class="afc-metrics">
+        <div>
+          <div class="afc-metric-val">2022</div>
+          <div class="afc-metric-key-jp">北京五輪出場</div>
+          <div class="afc-metric-key">Olympian</div>
+        </div>
+        <div>
+          <div class="afc-metric-val">2025</div>
+          <div class="afc-metric-key-jp">豪・NZカップ優勝</div>
+          <div class="afc-metric-key">AU/NZ Cup Winner</div>
+        </div>
+      </div>
+      <ul class="afc-achievements">
+        <li>9歳で東京からニュージーランドに移住</li>
+        <li>2022年北京五輪にニュージーランド代表として出場</li>
+        <li>クールなスタイルで観る人を惹きつける、スロープスタイルのスター</li>
+      </ul>
+      <div class="afc-sponsors">
+        <span class="afc-sponsor-tag">Red Bull</span>
+        <span class="afc-sponsor-tag">Nitro</span>
+        <span class="afc-sponsor-tag">Giro</span>
+        <span class="afc-sponsor-tag">ROXY</span>
+      </div>
+      <div class="afc-cta">
+        <a href="contact.html?track=brand&athlete=wakushima" class="afc-cta-primary">Contact</a>
+        <a href="athlete/cool-wakushima.html" class="afc-cta-ghost">Profile →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 仲田 歩夢 -->
+  <div class="athlete-full-card" id="nakada" data-sport="soccer">
+    <div class="afc-visual" style="background-image:url('images/athlete_nakada.jpg');background-size:cover;background-position:center 20%;">
+      <div class="afc-sport-badge">Soccer · WE League</div>
+    </div>
+    <div class="afc-body">
+      <div class="afc-name-en">Ayu Nakada</div>
+      <div class="afc-name-jp">仲田 歩夢</div>
+      <div class="afc-ig-link"><a href="https://www.instagram.com/ayu_nakada_13/" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/></svg>@ayu_nakada_13</a></div>
+      <p class="afc-tagline">WE LEAGUEの美しすぎるプロサッカー選手。世代別日本代表を4度経験し、プロ歴は14年のベテラン</p>
+      <div class="afc-metrics">
+        <div>
+          <div class="afc-metric-val">WE League</div>
+          <div class="afc-metric-key-jp">プロサッカー選手</div>
+          <div class="afc-metric-key">Professional Soccer Player</div>
+        </div>
+        <div>
+          <div class="afc-metric-val">RB</div>
+          <div class="afc-metric-key-jp">RB 大宮アルディージャ</div>
+          <div class="afc-metric-key">RB Omiya Ardija</div>
+        </div>
+      </div>
+      <ul class="afc-achievements">
+        <li>全国高校選手権2連覇</li>
+        <li>U-16〜U-20として4度の日本代表歴</li>
+        <li>プロリーグで14シーズンをプレー</li>
+      </ul>
+      <div class="afc-sponsors">
+        <span class="afc-sponsor-tag">hummel</span>
+      </div>
+      <div class="afc-cta">
+        <a href="contact.html?track=brand&athlete=nakada" class="afc-cta-primary">Contact</a>
+        <a href="athlete/ayu-nakada.html" class="afc-cta-ghost">Profile →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 志治 群青 -->
+  <div class="athlete-full-card" id="shiji" data-sport="skateboard">
+    <div class="afc-visual" style="background-image:url('images/athlete_shiji.jpg');background-size:cover;background-position:center top;">
+      <div class="afc-sport-badge">Skateboard · Park</div>
+    </div>
+    <div class="afc-body">
+      <div class="afc-name-en">Gunjo Shiji</div>
+      <div class="afc-name-jp">志治 群青</div>
+      <div class="afc-ig-link"><a href="https://www.instagram.com/cggunjo/" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/></svg>@cggunjo</a></div>
+      <p class="afc-tagline">13歳にして日本オープン優勝、14歳で日本選手権を準優勝した、今最も勢いのあるスケートボーダー</p>
+      <div class="afc-metrics">
+        <div>
+          <div class="afc-metric-val">Winner</div>
+          <div class="afc-metric-key-jp">日本オープン1位</div>
+          <div class="afc-metric-key">Japan Open</div>
+        </div>
+        <div>
+          <div class="afc-metric-val">2nd</div>
+          <div class="afc-metric-key-jp">日本選手権2位</div>
+          <div class="afc-metric-key">Japan Championship</div>
+        </div>
+      </div>
+      <ul class="afc-achievements">
+        <li>2025年マイナビ日本オープン優勝</li>
+        <li>2025年日本選手権 準優勝</li>
+        <li>2026年アジア競技大会(アジア五輪) 内定</li>
+      </ul>
+      <div class="afc-sponsors">
+        <span class="afc-sponsor-tag">POWELL-PERALTA</span>
+        <span class="afc-sponsor-tag">187KILLER PADS</span>
+        <span class="afc-sponsor-tag">PRO-TEC</span>
+        <span class="afc-sponsor-tag">SIDEWAY BEARING</span>
+        <span class="afc-sponsor-tag">BLACKLINE</span>
+        <span class="afc-sponsor-tag">HASCO ENTERPRISES</span>
+        <span class="afc-sponsor-tag">Advance Marketing</span>
+        <span class="afc-sponsor-tag">チロル接骨院・整体院</span>
+        <span class="afc-sponsor-tag">Hair Grande Seeek</span>
+        <span class="afc-sponsor-tag">株式会社オンラインドクター.com</span>
+      </div>
+      <div class="afc-cta">
+        <a href="contact.html?track=brand&athlete=shiji" class="afc-cta-primary">Contact</a>
+        <a href="athlete/cg-gunjo.html" class="afc-cta-ghost">Profile →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 岸 勇希 -->
+  <div class="athlete-full-card" id="kishi" data-sport="bmx">
+    <div class="afc-visual" style="background-image:url('images/athlete_kishi.jpg');background-size:cover;background-position:center 25%;">
+      <div class="afc-sport-badge">Street Trial · BMX</div>
+    </div>
+    <div class="afc-body">
+      <div class="afc-name-en">Yuki Kishi</div>
+      <div class="afc-name-jp">岸 勇希</div>
+      <div class="afc-ig-link"><a href="https://www.instagram.com/yuki_kishi_/" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/></svg>@yuki_kishi_</a></div>
+      <p class="afc-tagline">ストリートトライアルで唯一のSpecializedグローバルアンバサダー。14歳で公開した動画はYouTubeで660万回再生を記録</p>
+      <div class="afc-metrics">
+        <div>
+          <div class="afc-metric-val">6.6M</div>
+          <div class="afc-metric-key-jp">YouTube 660万回再生</div>
+          <div class="afc-metric-key">Youtube Views</div>
+        </div>
+        <div>
+          <div class="afc-metric-val">First</div>
+          <div class="afc-metric-key-jp">Specialized唯一のストリートトライアルライダー</div>
+          <div class="afc-metric-key">Specialized初のStreet Trial Rider</div>
+        </div>
+      </div>
+      <ul class="afc-achievements">
+        <li>Specializedのグローバルアンバサダーとして唯一のストリートトライアルライダー</li>
+        <li>14歳でリリースしたSchool Ride 1がYoutubeで660万回再生を記録</li>
+      </ul>
+      <div class="afc-sponsors">
+        <span class="afc-sponsor-tag">Specialized</span>
+        <span class="afc-sponsor-tag">MAXXIS</span>
+        <span class="afc-sponsor-tag">Title</span>
+      </div>
+      <div class="afc-cta">
+        <a href="contact.html?track=brand&athlete=kishi" class="afc-cta-primary">Contact</a>
+        <a href="athlete/kishi-yuki.html" class="afc-cta-ghost">Profile →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 星野 瑠菜 -->
+  <div class="athlete-full-card" id="hoshino" data-sport="golf">
+    <div class="afc-visual" style="background-image:url('images/athlete_hoshino.jpg');background-size:cover;background-position:center top;">
+      <div class="afc-sport-badge">Golf · Next Heroine Tour</div>
+    </div>
+    <div class="afc-body">
+      <div class="afc-name-en">Luna Hoshino</div>
+      <div class="afc-name-jp">星野 瑠菜</div>
+      <div class="afc-ig-link"><a href="https://www.instagram.com/h0_24sn/" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/></svg>@h0_24sn</a></div>
+      <p class="afc-tagline">ベストスコア63。2025年マイナビネクストヒロインゴルフツアー賞金ランキング17位</p>
+      <div class="afc-metrics">
+        <div>
+          <div class="afc-metric-val">63</div>
+          <div class="afc-metric-key-jp">ベストスコア</div>
+          <div class="afc-metric-key">Best Score</div>
+        </div>
+        <div>
+          <div class="afc-metric-val">17th</div>
+          <div class="afc-metric-key-jp">賞金ランキング</div>
+          <div class="afc-metric-key">on the Money List</div>
+        </div>
+      </div>
+      <ul class="afc-achievements">
+        <li>2025年からマイナビネクストヒロインゴルフツアーに参戦</li>
+        <li>初年度となる2025年は、ツアーを賞金ランキング17位、ポイントランキング23位で終了</li>
+        <li>2026年第2戦ではプレーオフの末、2位を獲得</li>
+      </ul>
+      <div class="afc-sponsors">
+        <span class="afc-sponsor-tag">東京鋲兼</span>
+        <span class="afc-sponsor-tag">東海金属工業</span>
+        <span class="afc-sponsor-tag">富士美モダンゴルフ</span>
+      </div>
+      <div class="afc-cta">
+        <a href="contact.html?track=brand&athlete=hoshino" class="afc-cta-primary">Contact</a>
+        <a href="athlete/hoshino-luna.html" class="afc-cta-ghost">Profile →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mane Yousuf -->
+  <div class="athlete-full-card" id="yousuf" data-sport="contents-creator">
+    <div class="afc-visual" style="background-image:url('images/athlete_yousuf.jpg');background-size:cover;background-position:center top;">
+      <div class="afc-sport-badge">Fitness · Running · Creator</div>
+    </div>
+    <div class="afc-body">
+      <div class="afc-name-en">Mane Yousuf</div>
+      <div class="afc-name-jp">マネ・ユーサフ</div>
+      <div class="afc-ig-link"><a href="https://www.tiktok.com/@alotmoremane" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.34 6.34 0 100 12.68 6.34 6.34 0 006.33-6.34V8.77a8.18 8.18 0 004.78 1.52V6.84a4.85 4.85 0 01-1-.15z"/></svg>@alotmoremane</a></div>
+      <p class="afc-tagline">TikTok 150万フォロワー、YouTube 86万登録。累計10億回再生超のランニング系コンテンツクリエイター</p>
+      <div class="afc-metrics">
+        <div>
+          <div class="afc-metric-val">1.5M</div>
+          <div class="afc-metric-key-jp">TikTok150万フォロワー</div>
+          <div class="afc-metric-key">TikTok Followers</div>
+        </div>
+        <div>
+          <div class="afc-metric-val">860K</div>
+          <div class="afc-metric-key-jp">Youtube86万登録</div>
+          <div class="afc-metric-key">Youtube Subscribers</div>
+        </div>
+        <div>
+          <div class="afc-metric-val">1B+</div>
+          <div class="afc-metric-key-jp">累計再生回数10億回超</div>
+          <div class="afc-metric-key">Total Views</div>
+        </div>
+      </div>
+      <ul class="afc-achievements">
+        <li>TikTok 150万フォロワー・YouTube 86万チャンネル登録・Instagram 17万フォロワーを誇るフィットネスクリエイター</li>
+        <li>累計再生回数は10億回超</li>
+        <li>ランニング・フィットネス・旅をテーマにコンテンツを展開中</li>
+      </ul>
+      <div class="afc-cta">
+        <a href="contact.html?track=brand&athlete=yousuf" class="afc-cta-primary">Contact</a>
+        <a href="athlete/maneyousuf.html" class="afc-cta-ghost">Profile →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Max Berguin -->
+  <div class="athlete-full-card" id="berguin" data-sport="skateboard">
+    <div class="afc-visual" style="background-image:url('images/athlete_berguin.jpg');background-size:cover;background-position:center 8%;">
+      <div class="afc-sport-badge">Skateboard · Street</div>
+    </div>
+    <div class="afc-body">
+      <div class="afc-name-en">Max Berguin</div>
+      <div class="afc-name-jp">マックス・ベルギャン</div>
+      <div class="afc-ig-link"><a href="https://www.instagram.com/maxberguin/" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/></svg>@maxberguin</a></div>
+      <p class="afc-tagline">フランス代表・欧州ユースオリンピック金メダルのスケートボーダー。世界ランキング30位</p>
+      <div class="afc-metrics">
+        <div>
+          <div class="afc-metric-val">World 30</div>
+          <div class="afc-metric-key-jp">世界ランキング30位</div>
+          <div class="afc-metric-key">Ranking</div>
+        </div>
+        <div>
+          <div class="afc-metric-val">French</div>
+          <div class="afc-metric-key-jp">フランス代表</div>
+          <div class="afc-metric-key">National Team</div>
+        </div>
+      </div>
+      <ul class="afc-achievements">
+        <li>2023年フランス選手権優勝</li>
+        <li>2023年欧州ユースオリンピック金メダル</li>
+        <li>2025年にはWorld Skate Tourローマ大会で、キャリアハイの11位にランクイン</li>
+      </ul>
+      <div class="afc-sponsors">
+        <span class="afc-sponsor-tag">Decathlon Skateboarding</span>
+        <span class="afc-sponsor-tag">Automatic Skateshop</span>
+        <span class="afc-sponsor-tag">Watts Different</span>
+      </div>
+      <div class="afc-cta">
+        <a href="contact.html?track=brand&athlete=berguin" class="afc-cta-primary">Contact</a>
+        <a href="athlete/max-berguin.html" class="afc-cta-ghost">Profile →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 竹内 悠貴 -->
+  <div class="athlete-full-card" id="takeuchi" data-sport="snowboard">
+    <div class="afc-visual" style="background-image:url('images/athlete_takeuchi.jpg');background-size:cover;background-position:center 25%;">
+      <div class="afc-sport-badge">Snowboard · Freeride</div>
+    </div>
+    <div class="afc-body">
+      <div class="afc-name-en">Haruki Takeuchi</div>
+      <div class="afc-name-jp">竹内 悠貴</div>
+      <div class="afc-ig-link"><a href="https://www.instagram.com/harukitakeuchi/" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/></svg>@harukitakeuchi</a></div>
+      <p class="afc-tagline">2025年FWQシーズン国内1位・世界9位。父はスノーボード黎明期を支えたレジェンドライダー・竹内正則</p>
+      <div class="afc-metrics">
+        <div>
+          <div class="afc-metric-val">World 9</div>
+          <div class="afc-metric-key-jp">2025年FWQランキング9位</div>
+          <div class="afc-metric-key">FWQ 2025</div>
+        </div>
+        <div>
+          <div class="afc-metric-val">#1</div>
+          <div class="afc-metric-key-jp">2025年FWQ日本ランキング1位</div>
+          <div class="afc-metric-key">2025 Japan FWQ</div>
+        </div>
+      </div>
+      <ul class="afc-achievements">
+        <li>2025年FWQ日本1位・世界9位</li>
+        <li>BURTON日本ライダー唯一のフリーライド競技者</li>
+      </ul>
+      <div class="afc-sponsors">
+        <span class="afc-sponsor-tag">Burton</span>
+        <span class="afc-sponsor-tag">Anon</span>
+        <span class="afc-sponsor-tag">MAGICTUNE</span>
+        <span class="afc-sponsor-tag">masa Nagoya</span>
+        <span class="afc-sponsor-tag">Global WiFi</span>
+      </div>
+      <div class="afc-cta">
+        <a href="contact.html?track=brand&athlete=takeuchi" class="afc-cta-primary">Contact</a>
+        <a href="athlete/takeuchi-haruki.html" class="afc-cta-ghost">Profile →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 山岸 建矢 -->
+  <div class="athlete-full-card" id="yamagishi" data-sport="contents-creator">
+    <div class="afc-visual" style="background-image:url('images/athlete_yamagishi.jpg');background-size:cover;background-position:center top;">
+      <div class="afc-sport-badge">Ski · Film / Jib</div>
+    </div>
+    <div class="afc-body">
+      <div class="afc-name-en">Tatsuya Yamagishi</div>
+      <div class="afc-name-jp">山岸 建矢</div>
+      <div class="afc-ig-link"><a href="https://www.instagram.com/tatsu_yamagishi/" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/></svg>@tatsu_yamagishi</a></div>
+      <p class="afc-tagline">フィルマーとしてGoPro Awardの受賞経験もある二刀流スキーヤー</p>
+      <div class="afc-metrics">
+        <div>
+          <div class="afc-metric-val">GoPro Award</div>
+          <div class="afc-metric-key-jp">2024 GoPro Award受賞</div>
+        </div>
+      </div>
+      <ul class="afc-achievements">
+        <li>17歳で大怪我を負うまでは、フリースタイルスキーヤーとして国内外の大会を転戦</li>
+        <li>怪我後は、競技中心の生活から映像制作との両立へのシフト</li>
+        <li>2024年にGoProアワードを受賞し、現在はRed BullやGoPro、Swatch Ninesをはじめとするクライアントの映像制作に携わり、世界の一線で活躍中</li>
+      </ul>
+      <div class="afc-sponsors">
+        <span class="afc-sponsor-tag">GoPro</span>
+        <span class="afc-sponsor-tag">Db</span>
+        <span class="afc-sponsor-tag">LINE Skis</span>
+      </div>
+      <div class="afc-cta">
+        <a href="contact.html?track=brand&athlete=yamagishi" class="afc-cta-primary">Contact</a>
+        <a href="athlete/yamagishi-kenya.html" class="afc-cta-ghost">Profile →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 杉 匠真 -->
+  <div class="athlete-full-card" id="sugi" data-sport="windsurf">
+    <div class="afc-visual" style="background-image:url('images/athlete_sugi.jpg');background-size:cover;background-position:center;">
+      <div class="afc-sport-badge">Windsurf · Wave</div>
+    </div>
+    <div class="afc-body">
+      <div class="afc-name-en">Takuma Sugi</div>
+      <div class="afc-name-jp">杉 匠真</div>
+      <div class="afc-ig-link"><a href="https://www.instagram.com/takuma.sugi/" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/></svg>@takuma.sugi</a></div>
+      <p class="afc-tagline">U20世界王者（2021）。PWA/IWT世界ランキング8位（日本人最高位）</p>
+      <div class="afc-metrics">
+        <div>
+          <div class="afc-metric-val">PWA 8</div>
+          <div class="afc-metric-key-jp">世界ランキング8位</div>
+          <div class="afc-metric-key">World Ranking</div>
+        </div>
+        <div>
+          <div class="afc-metric-val">U20</div>
+          <div class="afc-metric-key-jp">U-20世界チャンピオン</div>
+          <div class="afc-metric-key">World Champion</div>
+        </div>
+      </div>
+      <ul class="afc-achievements">
+        <li>U-20世界王者（2021）／ U-17世界王者（2018）</li>
+        <li>2024年JWAウェーブ年間王者・アジア王者</li>
+        <li>PWA/IWT世界ランキング8位（日本人最高位）</li>
+      </ul>
+      <div class="afc-sponsors">
+        <span class="afc-sponsor-tag">HydroFlask</span>
+        <span class="afc-sponsor-tag">Maneuverline</span>
+        <span class="afc-sponsor-tag">GARMIN Japan</span>
+        <span class="afc-sponsor-tag">株式会社パイプライン</span>
+        <span class="afc-sponsor-tag">株式会社グローバルアイ</span>
+        <span class="afc-sponsor-tag">Satiworks</span>
+        <span class="afc-sponsor-tag">SMITH</span>
+        <span class="afc-sponsor-tag">ON's Company</span>
+        <span class="afc-sponsor-tag">Black Project Fins</span>
+      </div>
+      <div class="afc-cta">
+        <a href="contact.html?track=brand&athlete=sugi" class="afc-cta-primary">Contact</a>
+        <a href="athlete/takuma-sugi.html" class="afc-cta-ghost">Profile →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 西本 成良 -->
+  <div class="athlete-full-card" id="nishimoto" data-sport="contents-creator">
+    <div class="afc-visual" style="background-image:url('images/athlete_nishimoto.jpg');background-size:cover;background-position:center 20%;">
+      <div class="afc-sport-badge">Street Kendama</div>
+    </div>
+    <div class="afc-body">
+      <div class="afc-name-en">Naru Nishimoto</div>
+      <div class="afc-name-jp">西本 成良</div>
+      <div class="afc-ig-link"><a href="https://www.instagram.com/naru_nishimoto/" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/></svg>@naru_nishimoto</a></div>
+      <p class="afc-tagline">けん玉ワールドカップ世代別 2連覇中のストリートけん玉プレーヤー。Instagram 5.8万フォロワー</p>
+      <div class="afc-metrics">
+        <div>
+          <div class="afc-metric-val">World #1</div>
+          <div class="afc-metric-key-jp">U-9世界1位</div>
+        </div>
+        <div>
+          <div class="afc-metric-val">58K</div>
+          <div class="afc-metric-key-jp">IGフォロワー5.8万人</div>
+          <div class="afc-metric-key">IG Followers</div>
+        </div>
+      </div>
+      <ul class="afc-achievements">
+        <li>2025年ワールドカップ U-9優勝・総合10位</li>
+        <li>2024年ワールドカップ U-9優勝・総合2位</li>
+        <li>Instagramは5.8万フォロワー(2026年4月時点)</li>
+      </ul>
+      <div class="afc-sponsors">
+        <span class="afc-sponsor-tag">KROM KENDAMA</span>
+        <span class="afc-sponsor-tag">Enuma Japan スターキッズ英語プログラム</span>
+      </div>
+      <div class="afc-cta">
+        <a href="contact.html?track=brand&athlete=nishimoto" class="afc-cta-primary">Contact</a>
+        <a href="athlete/nishimoto-naru.html" class="afc-cta-ghost">Profile →</a>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /athletes-page-grid -->
+
+<!-- CONTACT CTA -->
+<section class="contact-cta-section">
+  <div class="contact-cta-inner">
+    <div class="section-label">Brand Partnerships</div>
+    <h2 class="section-title" style="margin-bottom: 1rem;">Work With<br>Our <span class="accent">Roster.</span></h2>
+    <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+      <a href="sponsors.html" class="btn-primary">パートナーシップについて</a>
+      <a href="contact.html" class="btn-ghost">お問い合わせ</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-bottom" style="border-top: none; padding-top: 0;">
+      <div class="footer-copy">© 2025 株式会社 Front Row Athlete Agency. All rights reserved.</div>
+      <div class="footer-socials">
+        <a href="https://www.instagram.com/frontrowathleteagency/" target="_blank">Instagram</a>
+        <a href="index.html">Home</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script>
+  document.querySelectorAll('.athlete-full-card').forEach(card => {
+    card.addEventListener('click', (e) => {
+      if (e.target.closest('a')) return;
+      const profileLink = card.querySelector('.afc-cta-ghost');
+      if (profileLink) window.location.href = profileLink.href;
+    });
+  });
+</script>
+</body>
+</html>

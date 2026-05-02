@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>【Cool Wakushima】Swatch Nines MVP + Best Trick賞ダブル受賞 — Front Row Athlete Agency</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@300;400;500;600&family=Noto+Sans+JP:wght@300;400;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root { --r-sm:10px; --r-md:16px; --r-lg:24px; --r-pill:100px; }
+    .art-page { padding-top: 80px; }
+    .cat { display:inline-flex;align-items:center;font-family:var(--font-mono);font-size:0.56rem;letter-spacing:0.14em;text-transform:uppercase;padding:0.28rem 0.75rem;border-radius:var(--r-pill);width:fit-content;border:1px solid rgba(245,242,238,0.2);color:rgba(245,242,238,0.7);background:rgba(245,242,238,0.06); }
+    .cat.brand { background:rgba(232,200,64,0.1);border-color:rgba(232,200,64,0.3);color:#e8c840; }
+    .cat.event { background:rgba(64,180,232,0.1);border-color:rgba(64,180,232,0.3);color:#40b4e8; }
+    .cat.media { background:rgba(232,120,64,0.1);border-color:rgba(232,120,64,0.3);color:#e87840; }
+    .cat.result { background:rgba(160,120,255,0.1);border-color:rgba(160,120,255,0.3);color:#a078ff; }
+    .cat.news-tag { background:rgba(245,242,238,0.06);border-color:rgba(245,242,238,0.2);color:rgba(245,242,238,0.7); }
+    .art-hero { position:relative;height:60vh;min-height:400px;overflow:hidden; }
+    .art-hero-bg { position:absolute;inset:0; }
+    .art-hero-placeholder { position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:12rem;color:rgba(255,255,255,0.025);user-select:none; }
+    .art-hero-overlay { position:absolute;inset:0;background:linear-gradient(to top,rgba(10,10,10,1) 0%,rgba(10,10,10,0.25) 55%,transparent 100%); }
+    .art-hero-content { position:absolute;bottom:0;left:0;right:0;padding:2.5rem 5vw;max-width:860px; }
+    .art-breadcrumb { display:flex;align-items:center;gap:0.5rem;font-family:var(--font-mono);font-size:0.54rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,242,238,0.3);margin-bottom:1rem; }
+    .art-breadcrumb a { color:inherit;text-decoration:none;transition:color 0.2s; }
+    .art-breadcrumb a:hover { color:var(--white); }
+    .art-headline { font-family:var(--font-display);font-size:clamp(1.5rem,3vw,2.5rem);line-height:1.15;color:var(--white);margin:0.75rem 0 0.55rem; }
+    .art-meta { display:flex;align-items:center;gap:1.25rem;font-family:var(--font-mono);font-size:0.56rem;color:rgba(245,242,238,0.3);letter-spacing:0.1em;margin-top:0.6rem; }
+    .art-meta-sep { width:1px;height:10px;background:rgba(255,255,255,0.12); }
+    .art-layout { display:grid;grid-template-columns:1fr 300px;gap:5rem;max-width:1400px;margin:0 auto;padding:5rem 5vw 7rem; }
+    @media(max-width:900px){ .art-layout { grid-template-columns:1fr; } }
+    .art-body p { font-family:'Noto Sans JP',sans-serif;font-weight:300;font-size:0.95rem;line-height:2.1;color:rgba(245,242,238,0.75);margin-bottom:1.75rem; }
+    .art-body h2 { font-family:var(--font-display);font-size:1.05rem;color:var(--white);margin:2.5rem 0 0.85rem;padding-left:1rem;border-left:2px solid rgba(245,242,238,0.2); }
+    .art-body .info-box { background:var(--gray-1);border:1px solid var(--gray-2);border-radius:var(--r-md);padding:1.25rem 1.5rem;margin:2rem 0; }
+    .art-body .info-box p { margin-bottom:0.5rem;font-size:0.88rem; }
+    .art-body .info-box p:last-child { margin-bottom:0; }
+    .art-body .info-label { font-family:var(--font-mono);font-size:0.56rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(245,242,238,0.3);margin-bottom:0.75rem; }
+    .art-tags { display:flex;flex-wrap:wrap;gap:0.45rem;padding-top:2rem;border-top:1px solid var(--gray-2);margin-top:3rem; }
+    .art-tag { font-family:var(--font-mono);font-size:0.54rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.28rem 0.75rem;border-radius:var(--r-pill);border:1px solid var(--gray-2);color:var(--gray-3); }
+    .sb-section { margin-bottom:2.5rem; }
+    .sb-heading { font-family:var(--font-mono);font-size:0.56rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(245,242,238,0.22);margin-bottom:1rem;padding-bottom:0.7rem;border-bottom:1px solid var(--gray-2); }
+    .sb-athlete { background:var(--gray-1);border-radius:var(--r-md);padding:1.1rem;border:1px solid var(--gray-2);text-decoration:none;color:inherit;display:block;transition:border-color 0.2s; }
+    .sb-athlete:hover { border-color:rgba(245,242,238,0.2); }
+    .sb-athlete-img { width:100%;aspect-ratio:4/3;border-radius:var(--r-sm);margin-bottom:0.9rem;display:flex;align-items:center;justify-content:center; }
+    .sb-athlete-img span { font-family:var(--font-display);font-size:2.2rem;color:rgba(255,255,255,0.05); }
+    .sb-athlete-en { font-family:var(--font-display);font-size:0.95rem;color:var(--white);margin-bottom:0.1rem; }
+    .sb-athlete-jp { font-family:'Noto Sans JP',sans-serif;font-size:0.72rem;color:rgba(245,242,238,0.35);margin-bottom:0.65rem; }
+    .sb-athlete-sport { font-family:var(--font-mono);font-size:0.52rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(245,242,238,0.25);margin-bottom:0.65rem; }
+    .sb-athlete-link { display:flex;align-items:center;justify-content:space-between;font-family:var(--font-mono);font-size:0.54rem;letter-spacing:0.1em;color:rgba(245,242,238,0.35);padding-top:0.65rem;border-top:1px solid var(--gray-2);transition:color 0.2s; }
+    .sb-athlete:hover .sb-athlete-link { color:var(--white); }
+    .sb-cta { background:var(--gray-1);border-radius:var(--r-lg);padding:1.5rem;border:1px solid var(--gray-2);text-align:center; }
+    .sb-cta-label { font-family:var(--font-mono);font-size:0.52rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(245,242,238,0.25);margin-bottom:0.65rem; }
+    .sb-cta-text { font-family:var(--font-display);font-size:0.85rem;color:var(--white);line-height:1.35;margin-bottom:1rem; }
+    .sb-cta-btn { display:block;text-align:center;text-decoration:none;background:var(--lime);color:var(--void);font-family:var(--font-mono);font-size:0.58rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.65rem 1rem;border-radius:var(--r-pill);transition:opacity 0.2s; }
+    .sb-cta-btn:hover { opacity:0.85; }
+    .bg-a { background:linear-gradient(135deg,#141f06 0%,#0d1a00 100%); }
+    .bg-b { background:linear-gradient(135deg,#0f0f1f 0%,#1a1a2e 100%); }
+    .bg-c { background:linear-gradient(135deg,#1a0f00 0%,#2a1800 100%); }
+    .bg-d { background:linear-gradient(135deg,#001a1a 0%,#00232a 100%); }
+    .bg-e { background:linear-gradient(135deg,#1a001a 0%,#1a0028 100%); }
+  </style>
+</head>
+<body>
+<nav>
+  <a href="../index.html" class="nav-logo">
+    <img src="../images/logo_fraa.png" alt="FRAA" class="nav-logo-img">
+    <span class="nav-logo-text">Front Row Athlete Agency</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="../index.html">TOP</a></li>
+    <li><a href="../athletes.html">Athletes</a></li>
+    <li><a href="../sponsors.html">For Brands</a></li>
+    <li><a href="../news.html">News &amp; Works</a></li>
+    <li><a href="../index.html#about">About</a></li>
+    <li><a href="../company.html">Company</a></li>
+    <li><a href="../contact.html" class="nav-cta">Contact</a></li>
+  </ul>
+  <button class="nav-hamburger" id="navHamburger" aria-label="メニュー">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <nav class="mobile-menu-nav">
+    <a href="../index.html" class="mobile-menu-link">TOP</a>
+    <a href="../athletes.html" class="mobile-menu-link">Athletes</a>
+    <a href="../sponsors.html" class="mobile-menu-link">For Brands</a>
+    <a href="../news.html" class="mobile-menu-link">News &amp; Works</a>
+    <a href="../index.html#about" class="mobile-menu-link">About</a>
+    <a href="../company.html" class="mobile-menu-link">Company</a>
+    <a href="../contact.html" class="mobile-menu-link cta">Contact</a>
+  </nav>
+</div>
+<a class="mobile-back-btn" href="../news.html"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></a>
+<div class="art-page">
+  <div class="art-hero">
+    <div class="art-hero-bg" style="background-image:url('../images/news/wakushima-swatch-nines.jpg');background-size:cover;background-position:center top;"></div>
+    <div class="art-hero-overlay"></div>
+    <div class="art-hero-content">
+      <div class="art-breadcrumb">
+        <a href="../news.html">News &amp; Works</a>
+        <span style="opacity:0.3">/</span>
+        <span>Result</span>
+      </div>
+      <div class="cat result">Result</div>
+      <div class="art-headline">【Cool Wakushima】Swatch Nines ニセコ<br>MVP &amp; Best Trick賞 ダブル受賞</div>
+      <div class="art-meta">
+        <span>2026.03.28</span>
+        <div class="art-meta-sep"></div>
+        <span>Cool Wakushima</span>
+      </div>
+    </div>
+  </div>
+  <div class="art-layout">
+    <div class="art-body">
+      <p>Cool Wakushima（スノーボード・ビッグエア / スロープスタイル）が、ニセコで開催された日本初となるSwatch Ninesに出場し、MVPとBest Trick賞を受賞いたしました。</p>
+      <p>Swatch Nines Snowは、世界最高峰のスキーヤーとスノーボーダー、そしてクリエイティブの最前線を走る映像クリエイターたちが一堂に会し、革新的なトリックと圧倒的な映像美で魅せる、唯一無二のアクションスポーツイベントです。</p>
+      <p>従来の競技大会とは異なり、Swatch Ninesは「競い合う」のではなく、「魅せ合う」ことに主眼を置いており、招待制で選出されたトップアスリートたちは、ライダー主導で設計された唯一無二の特設雪上建築物を舞台に、限界を超えるトリックと創造性を追求します。</p>
+      <p style="font-family:var(--font-mono);font-size:0.6rem;color:rgba(245,242,238,0.3);letter-spacing:0.05em;">pc: Isami Kiyooka / Red Bull Content Pool</p>
+      <div class="art-tags">
+        <span class="art-tag">Cool Wakushima</span>
+        <span class="art-tag">Result</span>
+        <span class="art-tag">Swatch Nines</span>
+        <span class="art-tag">MVP</span>
+        <span class="art-tag">Best Trick</span>
+        <span class="art-tag">Snowboard</span>
+        <span class="art-tag">Niseko</span>
+      </div>
+    </div>
+    <aside>
+      <div class="sb-section">
+        <div class="sb-heading">Athlete</div>
+        <a href="../athlete/cool-wakushima.html" class="sb-athlete">
+          <div class="sb-athlete-img" style="background-image:url('../images/athlete_wakushima.jpg');background-size:cover;background-position:center 15%;"></div>
+          <div class="sb-athlete-en">Cool Wakushima</div>
+          <div class="sb-athlete-jp">ワクシマ クール</div>
+          <div class="sb-athlete-sport">Snowboard · Big Air / Slope Style</div>
+          <div class="sb-athlete-link"><span>View Profile</span><span>→</span></div>
+        </a>
+      </div>
+      <div class="sb-section">
+        <div class="sb-cta">
+          <div class="sb-cta-label">Brand Partnerships</div>
+          <div class="sb-cta-text">選手との<br>コラボレーションを<br>検討していますか？</div>
+          <a href="../contact.html" class="sb-cta-btn">お問い合わせ →</a>
+        </div>
+      </div>
+    </aside>
+  </div>
+</div>
+<footer>
+  <div class="footer-inner">
+    <div class="footer-bottom" style="border-top:none;padding-top:0;">
+      <div class="footer-copy">© 2025 株式会社 Front Row Athlete Agency. All rights reserved.</div>
+      <div class="footer-socials">
+        <a href="https://www.instagram.com/frontrowathleteagency/" target="_blank">Instagram</a>
+        <a href="../index.html">Home</a>
+      </div>
+    </div>
+  </div>
+</footer>
+<script src="../js/main.js"></script>
+</body>
+</html>

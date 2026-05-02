@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>News &amp; Works — Front Row Athlete Agency</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@300;400;500;600&family=Noto+Sans+JP:wght@300;400;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --void: #0a0a0a;
+      --gray-1: #111111;
+      --gray-2: #1e1e1e;
+      --gray-3: #2a2a2a;
+      --gray-4: #666666;
+      --cream: #f5f2ee;
+      --white: #ffffff;
+      --radius-sm: 6px;
+      --radius-md: 12px;
+      --radius-lg: 18px;
+      --radius-pill: 100px;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--void); color: var(--cream); font-family: 'Inter', sans-serif; }
+    a { text-decoration: none; color: inherit; }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      height: 60px;
+      background: rgba(10,10,10,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--gray-2);
+      display: flex; align-items: center; padding: 0 5vw; gap: 2rem;
+    }
+    .nav-logo { font-family: 'Archivo Black', sans-serif; font-size: 0.85rem; color: var(--cream); letter-spacing: 0.05em; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; margin-left: auto; }
+    .nav-links li { font-size: 0.72rem; color: var(--gray-4); font-family: 'Fira Code', monospace; letter-spacing: 0.1em; cursor: pointer; }
+    .nav-links li.active { color: var(--white); }
+    .nav-cta {
+      background: var(--cream); color: var(--void);
+      font-family: 'Fira Code', monospace; font-size: 0.65rem;
+      letter-spacing: 0.12em; padding: 0.5rem 1.1rem;
+      border-radius: var(--radius-pill);
+    }
+
+    /* ── PAGE HEADER ── */
+    .page-header {
+      padding: 5rem 5vw 3.5rem;
+      border-bottom: 1px solid var(--gray-2);
+      display: flex; align-items: flex-end; justify-content: space-between;
+    }
+    .page-eyebrow {
+      font-family: 'Fira Code', monospace; font-size: 0.6rem;
+      letter-spacing: 0.25em; text-transform: uppercase;
+      color: rgba(255,255,255,0.45); margin-bottom: 0.75rem;
+    }
+    .page-title {
+      font-family: 'Archivo Black', sans-serif;
+      font-size: clamp(3rem, 7vw, 6rem); line-height: 0.92; color: var(--cream);
+    }
+    .page-title em { color: var(--white); font-style: normal; opacity: 0.9; }
+    .page-count { font-family: 'Fira Code', monospace; font-size: 0.62rem; color: var(--gray-4); letter-spacing: 0.12em; padding-bottom: 0.4rem; }
+
+    /* ── FILTER BAR ── */
+    .filter-bar {
+      display: flex; gap: 0.5rem; padding: 1.25rem 5vw;
+      border-bottom: 1px solid var(--gray-2); overflow-x: auto;
+    }
+    .filter-bar::-webkit-scrollbar { display: none; }
+    .filter-pill {
+      font-family: 'Fira Code', monospace; font-size: 0.6rem;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--gray-4); padding: 0.5rem 1.1rem;
+      border: 1px solid var(--gray-2); border-radius: var(--radius-pill);
+      background: none; cursor: pointer; white-space: nowrap;
+      transition: all 0.2s;
+    }
+    .filter-pill.active { color: var(--void); background: var(--white); border-color: var(--white); }
+    .filter-pill:hover:not(.active) { color: var(--cream); border-color: rgba(255,255,255,0.3); }
+
+    /* ── FEATURED ROW ── */
+    .featured-row {
+      display: grid; grid-template-columns: 1fr 360px;
+      margin: 2rem 5vw; gap: 1.25rem;
+    }
+
+    /* featured main */
+    .featured-main {
+      position: relative; border-radius: var(--radius-lg); overflow: hidden;
+      aspect-ratio: 16/9; cursor: pointer;
+    }
+    .featured-bg {
+      width: 100%; height: 100%; position: absolute; inset: 0;
+      background: linear-gradient(135deg, #141f06 0%, #0d1a00 100%);
+      transition: transform 0.5s ease;
+    }
+    .featured-main:hover .featured-bg { transform: scale(1.04); }
+    .featured-placeholder {
+      position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+      font-family: 'Archivo Black', sans-serif; font-size: 6rem;
+      color: rgba(255,255,255,0.04); letter-spacing: -0.05em;
+    }
+    .featured-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(10,10,10,0.93) 0%, rgba(10,10,10,0.15) 55%, transparent 100%);
+      display: flex; flex-direction: column; justify-content: flex-end; padding: 2rem;
+      transition: background 0.3s;
+    }
+    .featured-main:hover .featured-overlay {
+      background: linear-gradient(to top, rgba(10,10,10,0.96) 0%, rgba(10,10,10,0.3) 60%, transparent 100%);
+    }
+    .featured-read {
+      display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;
+      opacity: 0; transform: translateY(6px); transition: all 0.25s;
+    }
+    .featured-main:hover .featured-read { opacity: 1; transform: translateY(0); }
+    .featured-read span {
+      font-family: 'Fira Code', monospace; font-size: 0.62rem;
+      letter-spacing: 0.15em; color: var(--white); text-transform: uppercase;
+    }
+    .featured-read-arrow {
+      width: 28px; height: 28px; border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.5);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.7rem; color: var(--white);
+    }
+
+    .cat-tag {
+      display: inline-flex; align-items: center;
+      font-family: 'Fira Code', monospace; font-size: 0.58rem;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      padding: 0.3rem 0.75rem; border-radius: var(--radius-pill);
+      margin-bottom: 0.65rem; width: fit-content;
+      border: 1px solid rgba(255,255,255,0.25); color: rgba(255,255,255,0.8);
+      background: rgba(255,255,255,0.07);
+    }
+    .cat-tag.brand { background: rgba(232,200,64,0.12); border-color: rgba(232,200,64,0.35); color: #e8c840; }
+    .cat-tag.event { background: rgba(64,180,232,0.12); border-color: rgba(64,180,232,0.35); color: #40b4e8; }
+    .cat-tag.media { background: rgba(232,120,64,0.12); border-color: rgba(232,120,64,0.35); color: #e87840; }
+    .cat-tag.result { background: rgba(160,120,255,0.12); border-color: rgba(160,120,255,0.35); color: #a078ff; }
+
+    .featured-title {
+      font-family: 'Archivo Black', sans-serif;
+      font-size: clamp(1.3rem, 2.5vw, 2rem); line-height: 1.15;
+      color: var(--cream); margin-bottom: 0.65rem;
+    }
+    .featured-meta {
+      font-family: 'Fira Code', monospace; font-size: 0.58rem;
+      color: rgba(245,242,238,0.4); letter-spacing: 0.1em;
+    }
+
+    /* sidebar */
+    .featured-sidebar { display: flex; flex-direction: column; gap: 1px; }
+    .sidebar-item {
+      display: flex; gap: 0.85rem; padding: 1rem 1.1rem;
+      background: var(--gray-1); border-radius: var(--radius-md);
+      cursor: pointer; transition: background 0.2s; flex: 1; align-items: center;
+    }
+    .sidebar-item:hover { background: var(--gray-2); }
+    .sidebar-thumb {
+      width: 68px; height: 54px; flex-shrink: 0;
+      border-radius: var(--radius-sm); overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .sidebar-thumb-inner {
+      width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;
+    }
+    .thumb-letter { font-family: 'Archivo Black', sans-serif; font-size: 1.2rem; color: rgba(255,255,255,0.1); }
+    .sidebar-text { flex: 1; min-width: 0; }
+    .sidebar-cat { font-family: 'Fira Code', monospace; font-size: 0.52rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 0.3rem; }
+    .sidebar-title { font-family: 'Archivo Black', sans-serif; font-size: 0.75rem; line-height: 1.3; color: var(--cream); margin-bottom: 0.25rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .sidebar-arrow { color: rgba(255,255,255,0.2); font-size: 0.7rem; opacity: 0; transition: opacity 0.2s; flex-shrink: 0; }
+    .sidebar-item:hover .sidebar-arrow { opacity: 1; }
+    .sidebar-date { font-family: 'Fira Code', monospace; font-size: 0.52rem; color: var(--gray-4); }
+
+    /* ── SECTION LABEL ── */
+    .section-label-row {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 2rem 5vw 1rem;
+    }
+    .section-label-row h2 {
+      font-family: 'Fira Code', monospace; font-size: 0.62rem;
+      letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.35);
+    }
+    .scroll-hint {
+      font-family: 'Fira Code', monospace; font-size: 0.58rem;
+      color: rgba(255,255,255,0.25); letter-spacing: 0.1em;
+      display: flex; align-items: center; gap: 0.4rem;
+    }
+    .scroll-hint svg { opacity: 0.5; }
+
+    /* ── HORIZONTAL SCROLL CARDS ── */
+    .card-scroll-track {
+      display: flex; gap: 1.25rem;
+      overflow-x: auto; scroll-snap-type: x mandatory;
+      padding: 0 5vw 2rem;
+      scrollbar-width: none; -webkit-overflow-scrolling: touch;
+    }
+    .card-scroll-track::-webkit-scrollbar { display: none; }
+
+    .news-card {
+      flex-shrink: 0; width: 320px; scroll-snap-align: start;
+      background: var(--gray-1); border-radius: var(--radius-lg);
+      overflow: hidden; display: flex; flex-direction: column; cursor: pointer;
+      border: 1px solid var(--gray-2); transition: border-color 0.2s, transform 0.2s;
+    }
+    .news-card:hover { border-color: rgba(255,255,255,0.18); transform: translateY(-3px); }
+
+    .card-thumb {
+      aspect-ratio: 16/9; overflow: hidden; position: relative;
+      border-radius: var(--radius-md) var(--radius-md) 0 0;
+    }
+    .card-thumb-bg {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      transition: transform 0.4s ease;
+    }
+    .news-card:hover .card-thumb-bg { transform: scale(1.06); }
+    .card-thumb-letter { font-family: 'Archivo Black', sans-serif; font-size: 3rem; color: rgba(255,255,255,0.06); }
+    .card-hover-overlay {
+      position: absolute; inset: 0;
+      background: rgba(10,10,10,0); display: flex; align-items: center; justify-content: center;
+      transition: background 0.25s;
+    }
+    .news-card:hover .card-hover-overlay { background: rgba(10,10,10,0.35); }
+    .card-read-btn {
+      font-family: 'Fira Code', monospace; font-size: 0.6rem;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      background: var(--white); color: var(--void);
+      padding: 0.5rem 1.1rem; border-radius: var(--radius-pill);
+      opacity: 0; transform: translateY(8px); transition: all 0.25s;
+    }
+    .news-card:hover .card-read-btn { opacity: 1; transform: translateY(0); }
+
+    .card-body { padding: 1.2rem; flex: 1; display: flex; flex-direction: column; }
+    .card-title {
+      font-family: 'Archivo Black', sans-serif; font-size: 0.92rem;
+      line-height: 1.3; color: var(--cream); margin-bottom: 0.5rem; flex: 1;
+    }
+    .card-desc { font-size: 0.75rem; color: rgba(245,242,238,0.45); line-height: 1.65; margin-bottom: 0.9rem; }
+    .card-footer {
+      display: flex; align-items: center; justify-content: space-between;
+      padding-top: 0.75rem; border-top: 1px solid var(--gray-2);
+    }
+    .card-date { font-family: 'Fira Code', monospace; font-size: 0.56rem; color: var(--gray-4); letter-spacing: 0.08em; }
+    .card-arrow {
+      width: 26px; height: 26px; border-radius: 50%;
+      border: 1px solid var(--gray-2); display: flex; align-items: center; justify-content: center;
+      font-size: 0.65rem; color: rgba(255,255,255,0.4);
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .news-card:hover .card-arrow { border-color: rgba(255,255,255,0.4); color: var(--cream); }
+
+    /* thumbnail color variants */
+    .thumb-a { background: linear-gradient(135deg, #141f06 0%, #0d1a00 100%); }
+    .thumb-b { background: linear-gradient(135deg, #0f0f1f 0%, #1a1a2e 100%); }
+    .thumb-c { background: linear-gradient(135deg, #1a0f00 0%, #2a1800 100%); }
+    .thumb-d { background: linear-gradient(135deg, #001a1a 0%, #00232a 100%); }
+    .thumb-e { background: linear-gradient(135deg, #1a001a 0%, #1a0028 100%); }
+
+    /* ── LOAD MORE ── */
+    .load-more-row {
+      display: flex; align-items: center; justify-content: center;
+      padding: 2.5rem 5vw 4rem;
+      border-top: 1px solid var(--gray-2);
+    }
+    .load-more-btn {
+      font-family: 'Fira Code', monospace; font-size: 0.62rem;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--cream); border: 1px solid rgba(255,255,255,0.2);
+      padding: 0.85rem 2.5rem; border-radius: var(--radius-pill);
+      background: none; cursor: pointer; transition: all 0.2s;
+    }
+    .load-more-btn:hover { background: var(--white); color: var(--void); border-color: var(--white); }
+
+    /* ── FOOTER stub ── */
+    .footer-stub {
+      border-top: 1px solid var(--gray-2); padding: 2rem 5vw;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .footer-copy { font-family: 'Fira Code', monospace; font-size: 0.58rem; color: var(--gray-4); }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a { font-family: 'Fira Code', monospace; font-size: 0.58rem; color: var(--gray-4); }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Front Row Athlete Agency</a>
+  <ul class="nav-links">
+    <li>Athletes</li>
+    <li>For Brands</li>
+    <li class="active">News &amp; Works</li>
+    <li>About</li>
+    <li><a href="contact.html" class="nav-cta">Work With Us</a></li>
+  </ul>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div>
+    <div class="page-eyebrow">Latest Updates</div>
+    <div class="page-title">News &amp;<br><em>Works.</em></div>
+  </div>
+  <div class="page-count">24 entries</div>
+</div>
+
+<!-- FILTER BAR -->
+<div class="filter-bar">
+  <button class="filter-pill active">All</button>
+  <button class="filter-pill">News</button>
+  <button class="filter-pill">Result</button>
+  <button class="filter-pill">Brand Work</button>
+  <button class="filter-pill">Event</button>
+  <button class="filter-pill">Media</button>
+</div>
+
+<!-- FEATURED ROW -->
+<div class="featured-row">
+  <a href="_design-article-detail.html" class="featured-main">
+    <div class="featured-bg thumb-a"></div>
+    <div class="featured-placeholder">FRAA</div>
+    <div class="featured-overlay">
+      <div class="featured-read">
+        <span>Read Article</span>
+        <div class="featured-read-arrow">→</div>
+      </div>
+      <div class="cat-tag brand">Brand Work</div>
+      <div class="featured-title">鬼塚雅 × 再春館製薬所<br>新シーズンキャンペーン始動</div>
+      <div class="featured-meta">2026.04.01 &nbsp;·&nbsp; Miyabi Onitsuka</div>
+    </div>
+  </a>
+
+  <div class="featured-sidebar">
+    <a href="_design-article-detail.html" class="sidebar-item">
+      <div class="sidebar-thumb"><div class="sidebar-thumb-inner thumb-b"><span class="thumb-letter">TO</span></div></div>
+      <div class="sidebar-text">
+        <div class="sidebar-cat">News</div>
+        <div class="sidebar-title">大塚健、ミラノ五輪代表内定</div>
+        <div class="sidebar-date">2026.03.18</div>
+      </div>
+      <div class="sidebar-arrow">→</div>
+    </a>
+    <a href="_design-article-detail.html" class="sidebar-item">
+      <div class="sidebar-thumb"><div class="sidebar-thumb-inner thumb-d"><span class="thumb-letter">TS</span></div></div>
+      <div class="sidebar-text">
+        <div class="sidebar-cat event">Event</div>
+        <div class="sidebar-title">杉匠真、PWA World Tour Hawaii 出場</div>
+        <div class="sidebar-date">2026.03.05</div>
+      </div>
+      <div class="sidebar-arrow">→</div>
+    </a>
+    <a href="_design-article-detail.html" class="sidebar-item">
+      <div class="sidebar-thumb"><div class="sidebar-thumb-inner thumb-c"><span class="thumb-letter">GS</span></div></div>
+      <div class="sidebar-text">
+        <div class="sidebar-cat result">Result</div>
+        <div class="sidebar-title">志治群青、名古屋アジア大会 代表選考通過</div>
+        <div class="sidebar-date">2026.02.28</div>
+      </div>
+      <div class="sidebar-arrow">→</div>
+    </a>
+    <a href="_design-article-detail.html" class="sidebar-item">
+      <div class="sidebar-thumb"><div class="sidebar-thumb-inner thumb-a"><span class="thumb-letter">LH</span></div></div>
+      <div class="sidebar-text">
+        <div class="sidebar-cat brand">Brand Work</div>
+        <div class="sidebar-title">星野瑠菜 × 富士美モダンゴルフ 契約更新</div>
+        <div class="sidebar-date">2026.02.10</div>
+      </div>
+      <div class="sidebar-arrow">→</div>
+    </a>
+  </div>
+</div>
+
+<!-- SCROLL GRID -->
+<div class="section-label-row">
+  <h2>Recent</h2>
+  <div class="scroll-hint">
+    <svg width="16" height="10" viewBox="0 0 16 10" fill="none" stroke="currentColor" stroke-width="1.2">
+      <path d="M1 5h14M10 1l4 4-4 4"/>
+    </svg>
+    スクロールで続きを見る
+  </div>
+</div>
+
+<div class="card-scroll-track">
+
+  <a href="_design-article-detail.html" class="news-card">
+    <div class="card-thumb">
+      <div class="card-thumb-bg thumb-c"><span class="card-thumb-letter">CW</span></div>
+      <div class="card-hover-overlay"><div class="card-read-btn">Read Article →</div></div>
+    </div>
+    <div class="card-body">
+      <div class="cat-tag" style="margin-bottom:0.6rem;">News</div>
+      <div class="card-title">Cool Wakushima、豪NZカップ スロープスタイル優勝</div>
+      <div class="card-desc">2025年シーズン最終戦で見事な逆転優勝。ニュージーランド代表として...</div>
+      <div class="card-footer">
+        <span class="card-date">2026.01.22</span>
+        <div class="card-arrow">→</div>
+      </div>
+    </div>
+  </a>
+
+  <a href="_design-article-detail.html" class="news-card">
+    <div class="card-thumb">
+      <div class="card-thumb-bg thumb-d"><span class="card-thumb-letter">YK</span></div>
+      <div class="card-hover-overlay"><div class="card-read-btn">Read Article →</div></div>
+    </div>
+    <div class="card-body">
+      <div class="cat-tag brand" style="margin-bottom:0.6rem;">Brand Work</div>
+      <div class="card-title">岸勇樹 × Specialized グローバルキャンペーン撮影</div>
+      <div class="card-desc">アジア代表として参加したグローバル広告撮影の舞台裏レポート...</div>
+      <div class="card-footer">
+        <span class="card-date">2026.01.15</span>
+        <div class="card-arrow">→</div>
+      </div>
+    </div>
+  </a>
+
+  <a href="_design-article-detail.html" class="news-card">
+    <div class="card-thumb">
+      <div class="card-thumb-bg thumb-e"><span class="card-thumb-letter">NN</span></div>
+      <div class="card-hover-overlay"><div class="card-read-btn">Read Article →</div></div>
+    </div>
+    <div class="card-body">
+      <div class="cat-tag result" style="margin-bottom:0.6rem;">Result</div>
+      <div class="card-title">西本那留、けん玉ワールドカップ U-9 2連覇達成</div>
+      <div class="card-desc">2年連続でU-9部門を制覇。10歳での快挙は世界のメディアでも...</div>
+      <div class="card-footer">
+        <span class="card-date">2025.12.18</span>
+        <div class="card-arrow">→</div>
+      </div>
+    </div>
+  </a>
+
+  <a href="_design-article-detail.html" class="news-card">
+    <div class="card-thumb">
+      <div class="card-thumb-bg thumb-b"><span class="card-thumb-letter">MB</span></div>
+      <div class="card-hover-overlay"><div class="card-read-btn">Read Article →</div></div>
+    </div>
+    <div class="card-body">
+      <div class="cat-tag event" style="margin-bottom:0.6rem;">Event</div>
+      <div class="card-title">Max Berguin、WST パリ大会に出場</div>
+      <div class="card-desc">ホームタウン・パリでのWST大会に出場。2028年五輪に向け重要なポイントを積み上げる。</div>
+      <div class="card-footer">
+        <span class="card-date">2025.12.05</span>
+        <div class="card-arrow">→</div>
+      </div>
+    </div>
+  </a>
+
+  <a href="_design-article-detail.html" class="news-card">
+    <div class="card-thumb">
+      <div class="card-thumb-bg thumb-a"><span class="card-thumb-letter">HT</span></div>
+      <div class="card-hover-overlay"><div class="card-read-btn">Read Article →</div></div>
+    </div>
+    <div class="card-body">
+      <div class="cat-tag result" style="margin-bottom:0.6rem;">Result</div>
+      <div class="card-title">竹内悠貴、FWQ 2025 国内1位・世界9位でフィニッシュ</div>
+      <div class="card-desc">フリーライドワールドクオリファイアー年間シリーズを国内最高位で締めくくる...</div>
+      <div class="card-footer">
+        <span class="card-date">2025.11.28</span>
+        <div class="card-arrow">→</div>
+      </div>
+    </div>
+  </a>
+
+  <a href="_design-article-detail.html" class="news-card">
+    <div class="card-thumb">
+      <div class="card-thumb-bg thumb-c"><span class="card-thumb-letter">TY</span></div>
+      <div class="card-hover-overlay"><div class="card-read-btn">Read Article →</div></div>
+    </div>
+    <div class="card-body">
+      <div class="cat-tag media" style="margin-bottom:0.6rem;">Media</div>
+      <div class="card-title">山岸建矢、GoPro Award 2024 受賞作品が公開</div>
+      <div class="card-desc">受賞フィルム「WHITE NOISE」がGoPro公式チャンネルで世界同時公開...</div>
+      <div class="card-footer">
+        <span class="card-date">2025.11.10</span>
+        <div class="card-arrow">→</div>
+      </div>
+    </div>
+  </a>
+
+</div>
+
+<div class="load-more-row">
+  <button class="load-more-btn">Load More</button>
+</div>
+
+<footer class="footer-stub">
+  <div class="footer-copy">© 2026 株式会社 Front Row Athlete Agency</div>
+  <div class="footer-links">
+    <a href="#">Instagram</a>
+    <a href="#">X</a>
+    <a href="index.html">Home</a>
+  </div>
+</footer>
+
+</body>
+</html>

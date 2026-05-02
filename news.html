@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Front Row Athlete Agency — 選手の最新ニュース、ブランドコラボレーション、戦績、イベント情報。">
+  <title>News &amp; Works — Front Row Athlete Agency</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@300;400;500;600&family=Noto+Sans+JP:wght@300;400;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root { --r-sm:10px; --r-md:16px; --r-lg:24px; --r-pill:100px; }
+    .nw-page { padding-top: 80px; }
+
+    .nw-header {
+      padding: 4rem 5vw 3rem;
+      border-bottom: 1px solid var(--gray-2);
+      display: flex; align-items: flex-end; justify-content: space-between;
+    }
+    .nw-eyebrow { font-family:var(--font-mono);font-size:0.58rem;letter-spacing:0.25em;text-transform:uppercase;color:rgba(245,242,238,0.35);margin-bottom:0.75rem; }
+    .nw-title { font-family:var(--font-display);font-size:clamp(2.8rem,6vw,5.5rem);line-height:0.92;color:var(--white); }
+    .nw-title em { color:var(--lime);font-style:normal; }
+    .nw-count { font-family:var(--font-mono);font-size:0.6rem;color:var(--gray-3);letter-spacing:0.12em;padding-bottom:0.4rem; }
+
+    .nw-filter { display:flex;gap:0.5rem;padding:1.25rem 5vw;border-bottom:1px solid var(--gray-2);overflow-x:auto;scrollbar-width:none; }
+    .nw-filter::-webkit-scrollbar { display:none; }
+    .nw-pill { font-family:var(--font-mono);font-size:0.58rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gray-3);padding:0.45rem 1rem;border:1px solid var(--gray-2);border-radius:var(--r-pill);background:none;cursor:pointer;white-space:nowrap;transition:all 0.2s; }
+    .nw-pill.active { color:var(--void);background:var(--lime);border-color:var(--lime); }
+    .nw-pill:hover:not(.active) { color:var(--white);border-color:rgba(245,242,238,0.3); }
+
+    .cat { display:inline-flex;align-items:center;font-family:var(--font-mono);font-size:0.56rem;letter-spacing:0.14em;text-transform:uppercase;padding:0.28rem 0.75rem;border-radius:var(--r-pill);width:fit-content;border:1px solid rgba(245,242,238,0.2);color:rgba(245,242,238,0.7);background:rgba(245,242,238,0.06); }
+    .cat.brand { background:rgba(232,200,64,0.1);border-color:rgba(232,200,64,0.3);color:#e8c840; }
+    .cat.event { background:rgba(64,180,232,0.1);border-color:rgba(64,180,232,0.3);color:#40b4e8; }
+    .cat.media { background:rgba(232,120,64,0.1);border-color:rgba(232,120,64,0.3);color:#e87840; }
+    .cat.result { background:rgba(160,120,255,0.1);border-color:rgba(160,120,255,0.3);color:#a078ff; }
+
+    .nw-featured { display:grid;grid-template-columns:1fr 520px;gap:0.75rem;margin:2rem 5vw; }
+    @media(max-width:900px){ .nw-featured { grid-template-columns:1fr; } }
+
+    .feat-main { position:relative;border-radius:var(--r-lg);overflow:hidden;aspect-ratio:16/9;display:block;cursor:pointer;text-decoration:none; }
+    .feat-bg { width:100%;height:100%;position:absolute;inset:0;transition:transform 0.5s ease; }
+    .feat-main:hover .feat-bg { transform:scale(1.04); }
+    .feat-placeholder { position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:8rem;color:rgba(255,255,255,0.03);user-select:none; }
+    .feat-overlay { position:absolute;inset:0;background:linear-gradient(to top,rgba(10,10,10,0.94) 0%,rgba(10,10,10,0.15) 55%,transparent 100%);display:flex;flex-direction:column;justify-content:flex-end;padding:2rem;transition:background 0.3s; }
+    .feat-main:hover .feat-overlay { background:linear-gradient(to top,rgba(10,10,10,0.97) 0%,rgba(10,10,10,0.3) 60%,transparent 100%); }
+    .feat-read { display:flex;align-items:center;gap:0.5rem;margin-bottom:0.9rem;opacity:0;transform:translateY(8px);transition:all 0.25s; }
+    .feat-main:hover .feat-read { opacity:1;transform:translateY(0); }
+    .feat-read-label { font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--lime); }
+    .feat-read-circle { width:26px;height:26px;border-radius:50%;border:1px solid rgba(255,255,255,0.45);display:flex;align-items:center;justify-content:center;font-size:0.65rem;color:var(--lime); }
+    .feat-title { font-family:var(--font-display);font-size:clamp(1.3rem,2.2vw,1.9rem);line-height:1.15;color:var(--white);margin:0.6rem 0 0.6rem; }
+    .feat-meta { font-family:var(--font-mono);font-size:0.56rem;color:rgba(245,242,238,0.35);letter-spacing:0.1em; }
+
+    .feat-sidebar { display:flex;flex-direction:column;gap:0.5rem; }
+    .sb-item { display:flex;gap:0.85rem;padding:0.9rem 1rem;background:var(--gray-1);border-radius:var(--r-md);border:1px solid var(--gray-2);cursor:pointer;align-items:center;text-decoration:none;color:inherit;transition:border-color 0.2s,background 0.2s;flex:1; }
+    .sb-item:hover { background:var(--gray-2);border-color:rgba(245,242,238,0.15); }
+    .sb-thumb { width:66px;height:50px;flex-shrink:0;border-radius:var(--r-sm);overflow:hidden;display:flex;align-items:center;justify-content:center; }
+    .sb-letter { font-family:var(--font-display);font-size:1.1rem;color:rgba(255,255,255,0.09); }
+    .sb-text { flex:1;min-width:0; }
+    .sb-cat { font-family:var(--font-mono);font-size:0.5rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,242,238,0.3);margin-bottom:0.25rem; }
+    .sb-title { font-family:var(--font-display);font-size:0.73rem;line-height:1.3;color:var(--white);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:0.2rem; }
+    .sb-date { font-family:var(--font-mono);font-size:0.5rem;color:var(--gray-3); }
+    .sb-arrow { color:rgba(245,242,238,0.2);font-size:0.65rem;flex-shrink:0;opacity:0;transition:opacity 0.2s; }
+    .sb-item:hover .sb-arrow { opacity:1; }
+    @media(min-width:901px){
+      .sb-item { padding:0; gap:0; align-items:stretch; overflow:hidden; }
+      .sb-thumb { width:auto; aspect-ratio:4/3; height:auto; align-self:stretch; flex-shrink:0; border-radius:var(--r-sm) 0 0 var(--r-sm); }
+      .sb-text { padding:0.8rem 1rem; flex:1; min-width:0; }
+      .sb-cat { font-size:0.62rem; }
+      .sb-title { font-size:0.9rem; white-space:normal; overflow:visible; text-overflow:clip; }
+      .sb-date { font-size:0.62rem; }
+      .sb-arrow { padding-right:0.8rem; align-self:center; }
+    }
+
+    .nw-scroll-header { display:flex;align-items:center;justify-content:space-between;padding:2rem 5vw 1rem; }
+    .nw-scroll-label { font-family:var(--font-mono);font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(245,242,238,0.25); }
+    .nw-scroll-hint { font-family:var(--font-mono);font-size:0.56rem;color:rgba(245,242,238,0.2);letter-spacing:0.08em;display:flex;align-items:center;gap:0.5rem; }
+
+    .nw-track { display:flex;gap:1.25rem;overflow-x:auto;scroll-snap-type:x mandatory;padding:0 5vw 2.5rem;scrollbar-width:none;-webkit-overflow-scrolling:touch; }
+    .nw-track::-webkit-scrollbar { display:none; }
+
+    .nw-card { flex-shrink:0;width:300px;scroll-snap-align:start;background:var(--gray-1);border-radius:var(--r-lg);border:1px solid var(--gray-2);overflow:hidden;display:flex;flex-direction:column;cursor:pointer;text-decoration:none;color:inherit;transition:border-color 0.2s,transform 0.2s; }
+    .nw-card:hover { border-color:rgba(245,242,238,0.18);transform:translateY(-3px); }
+    .nw-card-thumb { aspect-ratio:16/9;overflow:hidden;position:relative;border-radius:var(--r-md) var(--r-md) 0 0; }
+    .nw-card-thumb-bg { width:100%;height:100%;display:flex;align-items:center;justify-content:center;transition:transform 0.4s ease; }
+    .nw-card:hover .nw-card-thumb-bg { transform:scale(1.06); }
+    .nw-card-letter { font-family:var(--font-display);font-size:2.8rem;color:rgba(255,255,255,0.05); }
+    .nw-card-hover { position:absolute;inset:0;background:rgba(10,10,10,0);display:flex;align-items:center;justify-content:center;transition:background 0.25s; }
+    .nw-card:hover .nw-card-hover { background:rgba(10,10,10,0.38); }
+    .nw-card-read { font-family:var(--font-mono);font-size:0.58rem;letter-spacing:0.14em;text-transform:uppercase;background:var(--lime);color:var(--void);padding:0.45rem 1rem;border-radius:var(--r-pill);opacity:0;transform:translateY(8px);transition:all 0.25s; }
+    .nw-card:hover .nw-card-read { opacity:1;transform:translateY(0); }
+    .nw-card-body { padding:1.1rem;flex:1;display:flex;flex-direction:column; }
+    .nw-card-title { font-family:var(--font-display);font-size:0.88rem;line-height:1.3;color:var(--white);margin:0.5rem 0 0.45rem;flex:1; }
+    .nw-card-footer { display:flex;align-items:center;justify-content:space-between;padding-top:0.7rem;border-top:1px solid var(--gray-2); }
+    .nw-card-date { font-family:var(--font-mono);font-size:0.54rem;color:var(--gray-3); }
+    .nw-card-arrow { width:24px;height:24px;border-radius:50%;border:1px solid var(--gray-2);display:flex;align-items:center;justify-content:center;font-size:0.6rem;color:rgba(245,242,238,0.3);transition:border-color 0.2s,color 0.2s; }
+    .nw-card:hover .nw-card-arrow { border-color:rgba(245,242,238,0.4);color:var(--white); }
+
+    .nw-load-more { display:flex;justify-content:center;padding:2rem 5vw 4rem;border-top:1px solid var(--gray-2); }
+    .nw-load-btn { font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--white);border:1px solid rgba(245,242,238,0.2);padding:0.8rem 2.5rem;border-radius:var(--r-pill);background:none;cursor:pointer;transition:all 0.2s; }
+    .nw-load-btn:hover { background:var(--lime);color:var(--void);border-color:var(--lime); }
+
+    .bg-a { background:linear-gradient(135deg,#141f06 0%,#0d1a00 100%); }
+    .bg-b { background:linear-gradient(135deg,#0f0f1f 0%,#1a1a2e 100%); }
+    .bg-c { background:linear-gradient(135deg,#1a0f00 0%,#2a1800 100%); }
+    .bg-d { background:linear-gradient(135deg,#001a1a 0%,#00232a 100%); }
+    .bg-e { background:linear-gradient(135deg,#1a001a 0%,#1a0028 100%); }
+    @media (max-width: 768px) {
+      .nw-page { max-width: 100vw; overflow-x: hidden; }
+      .nw-featured {
+        display: block !important;
+        width: auto !important;
+        margin: 2rem 1.5rem !important;
+      }
+      .feat-main {
+        width: 100% !important;
+        box-sizing: border-box !important;
+      }
+      .feat-sidebar {
+        width: 100% !important;
+        box-sizing: border-box !important;
+        margin-top: 1rem;
+      }
+      .feat-overlay { padding: 1rem 1.25rem 1rem; }
+      .feat-read { display: none; }
+      .nw-card { width: 260px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <img src="images/logo_fraa.png" alt="FRAA" class="nav-logo-img">
+    <span class="nav-logo-text">Front Row Athlete Agency</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">TOP</a></li>
+    <li><a href="athletes.html">Athletes</a></li>
+    <li><a href="sponsors.html">For Brands</a></li>
+    <li><a href="news.html" style="color:var(--lime);">News &amp; Works</a></li>
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="company.html">Company</a></li>
+    <li><a href="contact.html" class="nav-cta">Contact</a></li>
+  </ul>
+  <button class="nav-hamburger" id="navHamburger" aria-label="メニュー">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <nav class="mobile-menu-nav">
+    <a href="index.html" class="mobile-menu-link">TOP</a>
+    <a href="athletes.html" class="mobile-menu-link">Athletes</a>
+    <a href="sponsors.html" class="mobile-menu-link">For Brands</a>
+    <a href="news.html" class="mobile-menu-link">News &amp; Works</a>
+    <a href="index.html#about" class="mobile-menu-link">About</a>
+    <a href="company.html" class="mobile-menu-link">Company</a>
+    <a href="contact.html" class="mobile-menu-link cta">Contact</a>
+  </nav>
+</div>
+
+<div class="nw-page">
+
+  <div class="nw-header">
+    <div>
+      <div class="nw-eyebrow">Latest Updates</div>
+      <div class="nw-title">News &amp;<br><em>Works.</em></div>
+    </div>
+    <div class="nw-count">9 entries</div>
+  </div>
+
+  <div class="nw-filter">
+    <button class="nw-pill active" data-filter="all">All</button>
+    <button class="nw-pill" data-filter="news">News</button>
+    <button class="nw-pill" data-filter="result">Result</button>
+    <button class="nw-pill" data-filter="event">Event</button>
+    <button class="nw-pill" data-filter="media">Media</button>
+  </div>
+
+  <!-- FEATURED: Cool Wakushima Swatch Nines MVP -->
+  <div class="nw-featured">
+    <a href="news/wakushima-swatch-nines-mvp.html" class="feat-main">
+      <div class="feat-bg" style="background-image:url('images/news/wakushima-swatch-nines.jpg');background-size:cover;background-position:center top;"></div>
+      <div class="feat-overlay">
+        <div class="feat-read">
+          <span class="feat-read-label">Read Article</span>
+          <div class="feat-read-circle">→</div>
+        </div>
+        <div class="cat result">Result</div>
+        <div class="feat-title">Cool Wakushima<br>Swatch Nines ニセコ MVP &amp; Best Trick賞 ダブル受賞</div>
+        <div class="feat-meta">2026.03.28 &nbsp;·&nbsp; Cool Wakushima</div>
+      </div>
+    </a>
+
+    <div class="feat-sidebar">
+      <a href="news/shiji-cbc-chanto.html" class="sb-item">
+        <div class="sb-thumb" style="background-image:url('images/news/shiji-cbc-chanto.jpg');background-size:cover;background-position:center;"></div>
+        <div class="sb-text">
+          <div class="sb-cat media">Media</div>
+          <div class="sb-title">志治群青、CBCテレビ「チャント！」出演</div>
+          <div class="sb-date">2026.04.14</div>
+        </div>
+        <div class="sb-arrow">→</div>
+      </a>
+      <a href="news/onitsuka-swatch-nines.html" class="sb-item">
+        <div class="sb-thumb" style="background-image:url('images/news/onitsuka-swatch-nines.jpg');background-size:cover;background-position:top;"></div>
+        <div class="sb-text">
+          <div class="sb-cat event">Event</div>
+          <div class="sb-title">鬼塚雅、Swatch Nines ニセコ出場・Best Trick賞ノミネート</div>
+          <div class="sb-date">2026.03.28</div>
+        </div>
+        <div class="sb-arrow">→</div>
+      </a>
+      <a href="news/otsuka-swatch-nines.html" class="sb-item">
+        <div class="sb-thumb" style="background-image:url('images/athlete_otsuka.jpg');background-size:cover;background-position:center 15%;"></div>
+        <div class="sb-text">
+          <div class="sb-cat event">Event</div>
+          <div class="sb-title">大塚健、Swatch Nines ニセコ出場</div>
+          <div class="sb-date">2026.03.28</div>
+        </div>
+        <div class="sb-arrow">→</div>
+      </a>
+      <a href="news/shiji-wst-sao-paulo.html" class="sb-item">
+        <div class="sb-thumb" style="background-image:url('images/news/shiji-wst-sao-paulo.jpg');background-size:cover;background-position:center;"></div>
+        <div class="sb-text">
+          <div class="sb-cat result">Result</div>
+          <div class="sb-title">志治群青、WST世界選手権2026 パーク出場</div>
+          <div class="sb-date">2026.04.08</div>
+        </div>
+        <div class="sb-arrow">→</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- SCROLL TRACK -->
+  <div class="nw-scroll-header">
+    <span class="nw-scroll-label">All Articles</span>
+    <span class="nw-scroll-hint">
+      <svg width="14" height="9" viewBox="0 0 14 9" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M1 4.5h12M8 1l4 3.5-4 3.5"/></svg>
+      スクロールで続きを見る
+    </span>
+  </div>
+
+  <div class="nw-track">
+
+    <a href="news/ivi-partnership.html" class="nw-card" data-cat="news">
+      <div class="nw-card-thumb">
+        <div class="nw-card-thumb-bg" style="background:#fff;display:flex;align-items:center;justify-content:center;">
+          <img src="images/news/ivi-logo.jpg" alt="IVI Entertainment" style="width:140px;height:auto;">
+        </div>
+        <div class="nw-card-hover"><div class="nw-card-read">Read Article →</div></div>
+      </div>
+      <div class="nw-card-body">
+        <div class="cat news-tag">News</div>
+        <div class="nw-card-title">【お知らせ】タレントプロダクションである株式会社IVI Entertainment　アイヴィーエンタテインメントと業務提携を締結</div>
+        <div class="nw-card-footer"><span class="nw-card-date">2026.04.28</span><div class="nw-card-arrow">→</div></div>
+      </div>
+    </a>
+
+    <a href="news/shiji-cbc-chanto.html" class="nw-card" data-cat="media">
+      <div class="nw-card-thumb">
+        <div class="nw-card-thumb-bg" style="background-image:url('images/news/shiji-cbc-chanto.jpg');background-size:cover;background-position:center;"></div>
+        <div class="nw-card-hover"><div class="nw-card-read">Read Article →</div></div>
+      </div>
+      <div class="nw-card-body">
+        <div class="cat media">Media</div>
+        <div class="nw-card-title">志治群青、CBCテレビ「チャント！」に出演</div>
+        <div class="nw-card-footer"><span class="nw-card-date">2026.04.14</span><div class="nw-card-arrow">→</div></div>
+      </div>
+    </a>
+
+    <a href="news/onitsuka-michael-kors.html" class="nw-card" data-cat="event">
+      <div class="nw-card-thumb">
+        <div class="nw-card-thumb-bg" style="background-image:url('images/news/onitsuka-michael-kors.jpg');background-size:cover;background-position:center top;"></div>
+        <div class="nw-card-hover"><div class="nw-card-read">Read Article →</div></div>
+      </div>
+      <div class="nw-card-body">
+        <div class="cat event">Event</div>
+        <div class="nw-card-title">鬼塚雅、Michael Kors × 25ans スペシャルイベントに出席</div>
+        <div class="nw-card-footer"><span class="nw-card-date">2026.04.02</span><div class="nw-card-arrow">→</div></div>
+      </div>
+    </a>
+
+    <a href="news/takeuchi-fanatics.html" class="nw-card" data-cat="event">
+      <div class="nw-card-thumb">
+        <div class="nw-card-thumb-bg" style="background-image:url('images/news/takeuchi-fanatics.jpg');background-size:cover;background-position:top;"></div>
+        <div class="nw-card-hover"><div class="nw-card-read">Read Article →</div></div>
+      </div>
+      <div class="nw-card-body">
+        <div class="cat event">Event</div>
+        <div class="nw-card-title">竹内悠貴、Fanatics社主催クローズドパーティーに出席</div>
+        <div class="nw-card-footer"><span class="nw-card-date">2026.04.05</span><div class="nw-card-arrow">→</div></div>
+      </div>
+    </a>
+
+    <a href="news/shiji-wst-sao-paulo.html" class="nw-card" data-cat="result">
+      <div class="nw-card-thumb">
+        <div class="nw-card-thumb-bg" style="background-image:url('images/news/shiji-wst-sao-paulo.jpg');background-size:cover;background-position:center;"></div>
+        <div class="nw-card-hover"><div class="nw-card-read">Read Article →</div></div>
+      </div>
+      <div class="nw-card-body">
+        <div class="cat result">Result</div>
+        <div class="nw-card-title">志治群青、WST世界選手権2026 パーク種目 初の予選突破</div>
+        <div class="nw-card-footer"><span class="nw-card-date">2026.04.08</span><div class="nw-card-arrow">→</div></div>
+      </div>
+    </a>
+
+    <a href="news/otsuka-swatch-nines.html" class="nw-card" data-cat="event">
+      <div class="nw-card-thumb">
+        <div class="nw-card-thumb-bg" style="background-image:url('images/news/otsuka-swatch-nines.jpg');background-size:cover;background-position:center;"></div>
+        <div class="nw-card-hover"><div class="nw-card-read">Read Article →</div></div>
+      </div>
+      <div class="nw-card-body">
+        <div class="cat event">Event</div>
+        <div class="nw-card-title">大塚健、日本初開催 Swatch Nines ニセコに出場</div>
+        <div class="nw-card-footer"><span class="nw-card-date">2026.03.28</span><div class="nw-card-arrow">→</div></div>
+      </div>
+    </a>
+
+    <a href="news/onitsuka-swatch-nines.html" class="nw-card" data-cat="event">
+      <div class="nw-card-thumb">
+        <div class="nw-card-thumb-bg" style="background-image:url('images/news/onitsuka-swatch-nines.jpg');background-size:cover;background-position:top;"></div>
+        <div class="nw-card-hover"><div class="nw-card-read">Read Article →</div></div>
+      </div>
+      <div class="nw-card-body">
+        <div class="cat event">Event</div>
+        <div class="nw-card-title">鬼塚雅、Swatch Nines ニセコ出場・Best Trick賞ノミネート</div>
+        <div class="nw-card-footer"><span class="nw-card-date">2026.03.28</span><div class="nw-card-arrow">→</div></div>
+      </div>
+    </a>
+
+    <a href="news/kishi-joins.html" class="nw-card" data-cat="news">
+      <div class="nw-card-thumb">
+        <div class="nw-card-thumb-bg" style="background-image:url('images/news/kishi-joins.jpg');background-size:cover;background-position:center;"></div>
+        <div class="nw-card-hover"><div class="nw-card-read">Read Article →</div></div>
+      </div>
+      <div class="nw-card-body">
+        <div class="cat">News</div>
+        <div class="nw-card-title">岸勇希、所属のお知らせ</div>
+        <div class="nw-card-footer"><span class="nw-card-date">2026.01.20</span><div class="nw-card-arrow">→</div></div>
+      </div>
+    </a>
+
+    <a href="news/wakushima-joins.html" class="nw-card" data-cat="news">
+      <div class="nw-card-thumb">
+        <div class="nw-card-thumb-bg" style="background-image:url('images/news/wakushima-joins.jpg');background-size:cover;background-position:center;"></div>
+        <div class="nw-card-hover"><div class="nw-card-read">Read Article →</div></div>
+      </div>
+      <div class="nw-card-body">
+        <div class="cat">News</div>
+        <div class="nw-card-title">Cool Wakushima、所属のお知らせ</div>
+        <div class="nw-card-footer"><span class="nw-card-date">2026.01.15</span><div class="nw-card-arrow">→</div></div>
+      </div>
+    </a>
+
+  </div>
+
+
+</div>
+
+<section class="contact-cta-section">
+  <div class="contact-cta-inner">
+    <div class="section-label">Brand Partnerships</div>
+    <h2 class="section-title" style="margin-bottom:1rem;">Work With<br>Our <span class="accent">Roster.</span></h2>
+    <div style="display:flex;gap:1rem;flex-wrap:wrap;">
+      <a href="sponsors.html" class="btn-primary">パートナーシップについて</a>
+      <a href="contact.html" class="btn-ghost">お問い合わせ</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-bottom" style="border-top:none;padding-top:0;">
+      <div class="footer-copy">© 2025 株式会社 Front Row Athlete Agency. All rights reserved.</div>
+      <div class="footer-socials">
+        <a href="https://www.instagram.com/frontrowathleteagency/" target="_blank">Instagram</a>
+        <a href="index.html">Home</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script>
+  document.querySelectorAll('.nw-pill').forEach(pill => {
+    pill.addEventListener('click', () => {
+      document.querySelectorAll('.nw-pill').forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+      const f = pill.dataset.filter;
+      document.querySelectorAll('.nw-card').forEach(card => {
+        card.style.display = (f === 'all' || card.dataset.cat === f) ? '' : 'none';
+      });
+    });
+  });
+</script>
+</body>
+</html>

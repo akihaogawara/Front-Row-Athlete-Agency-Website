@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Company — Front Row Athlete Agency</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@300;400;500;600&family=Noto+Sans+JP:wght@300;400;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    .co-page { padding-top: 120px; max-width: 860px; margin: 0 auto; padding-left: 5vw; padding-right: 5vw; padding-bottom: 8rem; }
+    .co-eyebrow { font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.25em; text-transform: uppercase; color: rgba(245,242,238,0.35); margin-bottom: 0.75rem; }
+    .co-title { font-family: var(--font-display); font-size: clamp(3rem, 7vw, 6rem); line-height: 0.95; color: var(--white); margin-bottom: 5rem; }
+    .co-table { width: 100%; border-collapse: collapse; }
+    .co-row { display: grid; grid-template-columns: 220px 1fr; gap: 3rem; padding: 2.5rem 0; border-bottom: 1px solid var(--gray-2); }
+    .co-row:first-child { border-top: 1px solid var(--gray-2); }
+    @media (max-width: 600px) { .co-row { grid-template-columns: 1fr; gap: 0.75rem; } }
+    .co-label { font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(245,242,238,0.35); padding-top: 0.15rem; }
+    .co-val-ja { font-family: 'Noto Sans JP', sans-serif; font-size: 1rem; color: var(--white); line-height: 1.6; margin-bottom: 0.3rem; }
+    .co-val-en { font-family: var(--font-body); font-size: 0.82rem; color: rgba(245,242,238,0.4); line-height: 1.6; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <img src="images/logo_fraa.png" alt="FRAA" class="nav-logo-img">
+    <span class="nav-logo-text">Front Row Athlete Agency</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">TOP</a></li>
+    <li><a href="athletes.html">Athletes</a></li>
+    <li><a href="sponsors.html">For Brands</a></li>
+    <li><a href="news.html">News &amp; Works</a></li>
+    <li><a href="company.html" style="color: var(--lime);">Company</a></li>
+    <li><a href="contact.html" class="nav-cta">Contact</a></li>
+  </ul>
+  <button class="nav-hamburger" id="navHamburger" aria-label="メニュー">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <nav class="mobile-menu-nav">
+    <a href="index.html" class="mobile-menu-link">TOP</a>
+    <a href="athletes.html" class="mobile-menu-link">Athletes</a>
+    <a href="sponsors.html" class="mobile-menu-link">For Brands</a>
+    <a href="news.html" class="mobile-menu-link">News &amp; Works</a>
+    <a href="index.html#about" class="mobile-menu-link">About</a>
+    <a href="company.html" class="mobile-menu-link">Company</a>
+    <a href="contact.html" class="mobile-menu-link cta">Contact</a>
+  </nav>
+</div>
+
+<div class="co-page">
+  <div class="co-eyebrow">About FRAA</div>
+  <h1 class="co-title">Company</h1>
+
+  <div>
+    <div class="co-row">
+      <div class="co-label">会社名<br>COMPANY</div>
+      <div>
+        <div class="co-val-ja">株式会社 Front Row Athlete Agency</div>
+      </div>
+    </div>
+
+    <div class="co-row">
+      <div class="co-label">代表取締役<br>CEO</div>
+      <div>
+        <div class="co-val-ja">小河原 明葉</div>
+        <div class="co-val-en">Akiha Ogawara</div>
+      </div>
+    </div>
+
+    <div class="co-row">
+      <div class="co-label">取締役<br>DIRECTORS</div>
+      <div>
+        <div class="co-val-ja">藤原 浩、小河原 健太</div>
+        <div class="co-val-en">Hiroshi Fujiwara, Kenta Ogawara</div>
+      </div>
+    </div>
+
+    <div class="co-row">
+      <div class="co-label">オフィス所在地<br>OFFICE</div>
+      <div>
+        <div class="co-val-ja">〒107-0062 東京都港区南青山5-15-9 フラット青山301</div>
+        <div class="co-val-en">Flat Aoyama 301, Minami-Aoyama, Minato ward, Tokyo</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-bottom" style="border-top: none; padding-top: 0;">
+      <div class="footer-copy">© 2025 株式会社 Front Row Athlete Agency. All rights reserved.</div>
+      <div class="footer-socials">
+        <a href="https://www.instagram.com/frontrowathleteagency/" target="_blank">Instagram</a>
+        <a href="index.html">Home</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

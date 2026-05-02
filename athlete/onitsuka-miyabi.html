@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Miyabi Onitsuka — Front Row Athlete Agency</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@300;400;500;600&family=Noto+Sans+JP:wght@300;400;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    .ap-hero {
+      position: relative;
+      height: 60vh;
+      min-height: 400px;
+      background-image: url('../images/athlete_onitsuka.jpg');
+      background-size: cover;
+      background-position: center top;
+      display: flex;
+      align-items: flex-end;
+      padding: 3rem 5vw;
+    }
+    .ap-hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(10,10,10,0.92) 0%, rgba(10,10,10,0.3) 60%, transparent 100%);
+    }
+    .ap-hero-content { position: relative; z-index: 1; }
+    .ap-name-en { font-family: 'Archivo Black', sans-serif; font-size: clamp(2.5rem, 6vw, 5rem); line-height: 1; color: var(--cream); margin-bottom: 0.3rem; }
+    .ap-name-jp { font-family: 'Noto Sans JP', sans-serif; font-size: 1rem; font-weight: 300; color: rgba(245,242,238,0.5); margin-bottom: 0.75rem; }
+    .ap-sport-tag { display: inline-block; font-family: 'Fira Code', monospace; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--lime); border: 1px solid rgba(154,205,50,0.4); padding: 0.3rem 0.75rem; border-radius: 2px; }
+    .ap-main { max-width: 1200px; margin: 0 auto; padding: 5rem 5vw; display: grid; grid-template-columns: 300px 1fr; gap: 5rem; }
+    @media (max-width: 768px) { .ap-main { grid-template-columns: 1fr; gap: 3rem; padding: 3rem 5vw; } }
+    .ap-meta { display: flex; flex-direction: column; gap: 2.5rem; }
+    .ap-meta-label { font-family: 'Fira Code', monospace; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--lime); margin-bottom: 0.5rem; }
+    .ap-meta-value { font-family: 'Noto Sans JP', sans-serif; font-size: 0.9rem; color: var(--cream); line-height: 1.6; }
+    .ap-sponsors-list { display: flex; flex-direction: column; gap: 0.4rem; }
+    .ap-sponsor-item { font-family: 'Inter', sans-serif; font-size: 0.85rem; color: rgba(245,242,238,0.6); }
+    .ap-social-links { display: flex; flex-direction: column; gap: 0.6rem; }
+    .ap-social-link { display: flex; align-items: center; gap: 0.6rem; font-family: 'Fira Code', monospace; font-size: 0.75rem; color: rgba(245,242,238,0.6); text-decoration: none; transition: color 0.2s; }
+    .ap-social-link:hover { color: var(--lime); }
+    .ap-social-icon { width: 16px; height: 16px; opacity: 0.6; flex-shrink: 0; }
+    .ap-social-link:hover .ap-social-icon { opacity: 1; }
+    .ap-inquire-btn { display: block; width: 100%; text-align: center; background: var(--lime); color: var(--void); font-family: 'Fira Code', monospace; font-size: 0.75rem; letter-spacing: 0.1em; text-decoration: none; padding: 0.9rem 1rem; transition: opacity 0.2s; }
+    .ap-inquire-btn:hover { opacity: 0.85; }
+    .ap-bio { font-family: 'Noto Sans JP', sans-serif; font-size: 0.95rem; line-height: 1.9; color: rgba(245,242,238,0.8); margin-bottom: 4rem; }
+    .ap-bio p + p { margin-top: 1rem; }
+    .ap-results-title { font-family: 'Fira Code', monospace; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--lime); margin-bottom: 2rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--gray-2); }
+    .ap-year-block { margin-bottom: 2rem; }
+    .ap-year { font-family: 'Archivo Black', sans-serif; font-size: 0.85rem; color: rgba(245,242,238,0.35); margin-bottom: 0.6rem; }
+    .ap-result-item { font-family: 'Inter', sans-serif; font-size: 0.88rem; color: rgba(245,242,238,0.7); padding: 0.45rem 0; border-bottom: 1px solid rgba(245,242,238,0.06); line-height: 1.5; }
+    .ap-result-item:last-child { border-bottom: none; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html" class="nav-logo">
+    <img src="../images/logo_fraa.png" alt="FRAA" class="nav-logo-img">
+    <span class="nav-logo-text">Front Row Athlete Agency</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="../index.html">TOP</a></li>
+    <li><a href="../athletes.html">Athletes</a></li>
+    <li><a href="../sponsors.html">For Brands</a></li>
+    <li><a href="../news.html">News &amp; Works</a></li>
+    <li><a href="../index.html#about">About</a></li>
+    <li><a href="../company.html">Company</a></li>
+    <li><a href="../contact.html" class="nav-cta">Contact</a></li>
+  </ul>
+  <button class="nav-hamburger" id="navHamburger" aria-label="メニュー">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <nav class="mobile-menu-nav">
+    <a href="../index.html" class="mobile-menu-link">TOP</a>
+    <a href="../athletes.html" class="mobile-menu-link">Athletes</a>
+    <a href="../sponsors.html" class="mobile-menu-link">For Brands</a>
+    <a href="../news.html" class="mobile-menu-link">News &amp; Works</a>
+    <a href="../index.html#about" class="mobile-menu-link">About</a>
+    <a href="../company.html" class="mobile-menu-link">Company</a>
+    <a href="../contact.html" class="mobile-menu-link cta">Contact</a>
+  </nav>
+</div>
+<a class="mobile-back-btn" href="../athletes.html"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></a>
+
+<section class="ap-hero">
+  <div class="ap-hero-content">
+    <div class="ap-name-en">Miyabi Onitsuka</div>
+    <div class="ap-name-jp">鬼塚 雅</div>
+    <span class="ap-sport-tag">Snowboard · Big Air / Slope Style</span>
+  </div>
+</section>
+
+<div class="ap-main">
+  <aside class="ap-meta">
+    <div class="ap-meta-block">
+      <div class="ap-meta-label">生年月日</div>
+      <div class="ap-meta-value">1998年10月12日</div>
+    </div>
+    <div class="ap-meta-block">
+      <div class="ap-meta-label">出身地</div>
+      <div class="ap-meta-value">熊本県熊本市</div>
+    </div>
+    <div class="ap-meta-block">
+      <div class="ap-meta-label">Social</div>
+      <div class="ap-social-links">
+        <a href="https://www.instagram.com/miyabionitsuka/" target="_blank" rel="noopener" class="ap-social-link">
+          <svg class="ap-social-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/></svg>
+          @miyabionitsuka
+        </a>
+      </div>
+    </div>
+    <div class="ap-meta-block">
+      <div class="ap-meta-label">Sponsors</div>
+      <div class="ap-sponsors-list">
+        <span class="ap-sponsor-item">ISPS</span>
+        <span class="ap-sponsor-item">Red Bull</span>
+        <span class="ap-sponsor-item">Artistic&Co</span>
+        <span class="ap-sponsor-item">F.Janck</span>
+        <span class="ap-sponsor-item">Youki Pet Clinic</span>
+        <span class="ap-sponsor-item">Saishunkaku Pharmaceutical</span>
+        <span class="ap-sponsor-item">Nitro USA</span>
+        <span class="ap-sponsor-item">Powster</span>
+        <span class="ap-sponsor-item">CWX</span>
+        <span class="ap-sponsor-item">Swix</span>
+        <span class="ap-sponsor-item">Slick House</span>
+        <span class="ap-sponsor-item">Global Wifi</span>
+      </div>
+    </div>
+    <a href="../contact.html?track=brand&athlete=onitsuka" class="ap-inquire-btn">Contact</a>
+  </aside>
+
+  <div class="ap-content">
+    <div class="ap-bio">
+      <p>1998年10月12日生まれ、熊本県熊本市出身。平昌オリンピック・北京オリンピック日本代表。5歳福岡市の室内練習場でスノーボードを始め、幼い頃から国際大会を転戦。その後、第1回目の世界選手権スロープスタイルにて優勝し、男女通じて史上最年少（16歳3ヶ月）での世界選手権の優勝を成し遂げる。2020年のX GAMES ASPEN BIGAIRでは、CABダブルコーク1260の大技を決め初優勝を飾る。2023年の世界選手権ではスロープスタイル、ビッグエアの両種目でメダルを獲得。女子スノーボード界を牽引する存在。</p>
+    </div>
+
+    <div class="ap-results">
+      <div class="ap-results-title">戦績 / Highlighted Results</div>
+
+      <div class="ap-year-block">
+        <div class="ap-year">2025/2026シーズン</div>
+        <div class="ap-result-item">ワールドカップ ビックエア シーズン総合優勝</div>
+        <div class="ap-result-item">ワールドカップ ビックエア（Secret Garden/中国） - 3位</div>
+        <div class="ap-result-item">ワールドカップ ビックエア（Beijing/中国） - 5位</div>
+        <div class="ap-result-item">ワールドカップ ビックエア（Steamboat/アメリカ） - 優勝</div>
+        <div class="ap-result-item">ワールドカップ スロープスタイル（Laax/スイス） - 12位</div>
+        <div class="ap-result-item">X GAMES ビックエア - 出場</div>
+        <div class="ap-result-item">X GAMES スロープスタイル - 出場</div>
+      </div>
+
+      <div class="ap-year-block">
+        <div class="ap-year">2024/2025シーズン</div>
+        <div class="ap-result-item">ワールドカップ スロープスタイル（Laax/スイス） - 7位</div>
+        <div class="ap-result-item">ワールドカップ ビッグエア（Kreischberg/オーストリア） - 7位</div>
+        <div class="ap-result-item">ワールドカップ ビッグエア（Aspen/アメリカ） - 5位</div>
+        <div class="ap-result-item">ワールドカップ ビッグエア（Beijing/中国） - 4位</div>
+        <div class="ap-result-item">X GAMES ビッグエア（Aspen/アメリカ） - 5位</div>
+        <div class="ap-result-item">X GAMES スロープスタイル（Aspen/アメリカ） - 8位</div>
+      </div>
+
+      <div class="ap-year-block">
+        <div class="ap-year">2023/2024シーズン</div>
+        <div class="ap-result-item">ヨーロッパカップ スロープスタイル（Corvatsch/スイス） - 優勝</div>
+        <div class="ap-result-item">ワールドカップ スロープスタイル（Corvatsch/スイス） - 5位</div>
+        <div class="ap-result-item">ワールドカップ スロープスタイル（Tignes/フランス） - 2位</div>
+        <div class="ap-result-item">X GAMES スロープスタイル（Aspen/アメリカ） - 7位</div>
+        <div class="ap-result-item">X GAMES ビックエア（Aspen/アメリカ） - 8位</div>
+        <div class="ap-result-item">ワールドカップ ビックエア（Copper Mountain/アメリカ） - 6位</div>
+        <div class="ap-result-item">ワールドカップ ビックエア（Edomonton/カナダ） - 6位</div>
+        <div class="ap-result-item">ワールドカップ ビックエア（Beijing/中国） - 3位</div>
+        <div class="ap-result-item">ワールドカップ ビックエア（Chur/スイス） - 6位</div>
+      </div>
+
+      <div class="ap-year-block">
+        <div class="ap-year">2022/2023シーズン</div>
+        <div class="ap-result-item">ワールドカップ スロープスタイル（Corvatsch/スイス） - 5位</div>
+        <div class="ap-result-item">世界選手権大会 ビックエア（Bakuriani/ジョージア） - 2位</div>
+        <div class="ap-result-item">世界選手権大会 スロープスタイル（Bakuriani/ジョージア） - 3位</div>
+        <div class="ap-result-item">ワールドカップ スロープスタイル（Calgary/カナダ） - 4位</div>
+        <div class="ap-result-item">X GAMES ビックエア（Aspen/アメリカ） - 5位</div>
+        <div class="ap-result-item">ワールドカップ スロープスタイル（Laax/スイス） - 5位</div>
+        <div class="ap-result-item">ワールドカップ ビッグエア（Kreischberg/オーストリア） - 4位</div>
+        <div class="ap-result-item">ワールドカップ ビッグエア（Copper Mountain/アメリカ） - 3位</div>
+      </div>
+
+      <div class="ap-year-block">
+        <div class="ap-year">2021/2022シーズン</div>
+        <div class="ap-result-item">北京オリンピック スノーボード ビッグエア（Beijing/中国） - 11位</div>
+        <div class="ap-result-item">X GAMES ビックエア（Aspen/アメリカ） - 3位</div>
+        <div class="ap-result-item">ワールドカップ スロープスタイル（Calgary/カナダ） - 2位</div>
+      </div>
+
+      <div class="ap-year-block">
+        <div class="ap-year">2020/2021シーズン</div>
+        <div class="ap-result-item">世界選手権大会 ビックエア（Aspen/アメリカ） - 3位</div>
+        <div class="ap-result-item">X GAMES ビックエア（Aspen/アメリカ） - 2位</div>
+        <div class="ap-result-item">ワールドカップ ビッグエア（Kreischberg/オーストリア） - 5位</div>
+      </div>
+
+      <div class="ap-year-block">
+        <div class="ap-year">2019/2020シーズン</div>
+        <div class="ap-result-item">X GAMES ビックエア（Hafjell/ノルウェー） - 2位</div>
+        <div class="ap-result-item">X GAMES スロープスタイル（Hafjell/ノルウェー） - 8位</div>
+        <div class="ap-result-item">BURTON US OPEN スロープスタイル（Vail/アメリカ） - 3位</div>
+        <div class="ap-result-item">X GAMES スロープスタイル（Aspen/アメリカ） - 7位</div>
+        <div class="ap-result-item">X GAMES ビックエア（Aspen/アメリカ） - 優勝</div>
+        <div class="ap-result-item">ワールドカップ ビッグエア（Beijing/中国） - 優勝</div>
+      </div>
+
+      <div class="ap-year-block">
+        <div class="ap-year">2018/2019シーズン</div>
+        <div class="ap-result-item">BURTON US OPEN スロープスタイル（Vail/アメリカ） - 3位</div>
+        <div class="ap-result-item">ワールドカップ スロープスタイル（Kreischberg/オーストリア） - 優勝</div>
+        <div class="ap-result-item">ワールドカップ スロープスタイル（Chongli/中国） - 優勝</div>
+        <div class="ap-result-item">ワールドカップ ビッグエア（Beijing/中国） - 2位</div>
+        <div class="ap-result-item">ワールドカップ ビッグエア（Modena/イタリア） - 2位</div>
+      </div>
+
+      <div class="ap-year-block">
+        <div class="ap-year">2017/2018シーズン</div>
+        <div class="ap-result-item">ワールドカップ スロープスタイル（Seiser Alm/イタリア） - 4位</div>
+        <div class="ap-result-item">平昌オリンピック ビッグエア（Pyeongchang/韓国） - 8位入賞</div>
+        <div class="ap-result-item">ワールドカップ ビッグエア（Monchengladbach/ドイツ） - 2位</div>
+        <div class="ap-result-item">ワールドカップ ビッグエア（Beijing/中国） - 2位</div>
+      </div>
+
+      <div class="ap-year-block">
+        <div class="ap-year">2016/2017シーズン</div>
+      </div>
+
+      <div class="ap-year-block">
+        <div class="ap-year">2015/2016シーズン</div>
+        <div class="ap-result-item">LAAX OPEN スロープスタイル（Laax/スイス） - 3位</div>
+      </div>
+
+      <div class="ap-year-block">
+        <div class="ap-year">2014/2015シーズン</div>
+        <div class="ap-result-item">世界選手権大会 スロープスタイル（Kreischberg/オーストリア） - 優勝</div>
+      </div>
+
+      <div class="ap-year-block">
+        <div class="ap-year">2013/2014シーズン</div>
+        <div class="ap-result-item">全日本選手権ニセコ大会 スロープスタイル（ニセコ/北海道） - 優勝</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<section class="contact-cta-section">
+  <div class="contact-cta-inner">
+    <div class="section-label">Brand Partnerships</div>
+    <h2 class="section-title" style="margin-bottom: 1rem;">Work With<br>Our <span class="accent">Roster.</span></h2>
+    <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+      <a href="../sponsors.html" class="btn-primary">パートナーシップについて</a>
+      <a href="../contact.html" class="btn-ghost">お問い合わせ</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-bottom" style="border-top: none; padding-top: 0;">
+      <div class="footer-copy">© 2025 株式会社 Front Row Athlete Agency. All rights reserved.</div>
+      <div class="footer-socials">
+        <a href="https://www.instagram.com/frontrowathleteagency/" target="_blank">Instagram</a>
+        <a href="../index.html">Home</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+</body>
+</html>

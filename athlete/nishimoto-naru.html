@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Naru Nishimoto — Front Row Athlete Agency</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@300;400;500;600&family=Noto+Sans+JP:wght@300;400;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    .ap-hero { position: relative; height: 60vh; min-height: 400px; background-image: url('../images/athlete_nishimoto.jpg'); background-size: cover; background-position: center top; display: flex; align-items: flex-end; padding: 3rem 5vw; }
+    .ap-hero::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(10,10,10,0.92) 0%, rgba(10,10,10,0.3) 60%, transparent 100%); }
+    .ap-hero-content { position: relative; z-index: 1; }
+    .ap-name-en { font-family: 'Archivo Black', sans-serif; font-size: clamp(2.5rem, 6vw, 5rem); line-height: 1; color: var(--cream); margin-bottom: 0.3rem; }
+    .ap-name-jp { font-family: 'Noto Sans JP', sans-serif; font-size: 1rem; font-weight: 300; color: rgba(245,242,238,0.5); margin-bottom: 0.75rem; }
+    .ap-sport-tag { display: inline-block; font-family: 'Fira Code', monospace; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--lime); border: 1px solid rgba(154,205,50,0.4); padding: 0.3rem 0.75rem; border-radius: 2px; }
+    .ap-main { max-width: 1200px; margin: 0 auto; padding: 5rem 5vw; display: grid; grid-template-columns: 300px 1fr; gap: 5rem; }
+    @media (max-width: 768px) { .ap-main { grid-template-columns: 1fr; gap: 3rem; padding: 3rem 5vw; } }
+    .ap-meta { display: flex; flex-direction: column; gap: 2.5rem; }
+    .ap-meta-label { font-family: 'Fira Code', monospace; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--lime); margin-bottom: 0.5rem; }
+    .ap-meta-value { font-family: 'Noto Sans JP', sans-serif; font-size: 0.9rem; color: var(--cream); line-height: 1.6; }
+    .ap-sponsors-list { display: flex; flex-direction: column; gap: 0.4rem; }
+    .ap-sponsor-item { font-family: 'Inter', sans-serif; font-size: 0.85rem; color: rgba(245,242,238,0.6); }
+    .ap-social-links { display: flex; flex-direction: column; gap: 0.6rem; }
+    .ap-social-link { display: flex; align-items: center; gap: 0.6rem; font-family: 'Fira Code', monospace; font-size: 0.75rem; color: rgba(245,242,238,0.6); text-decoration: none; transition: color 0.2s; }
+    .ap-social-link:hover { color: var(--lime); }
+    .ap-social-icon { width: 16px; height: 16px; opacity: 0.6; flex-shrink: 0; }
+    .ap-social-link:hover .ap-social-icon { opacity: 1; }
+    .ap-inquire-btn { display: block; width: 100%; text-align: center; background: var(--lime); color: var(--void); font-family: 'Fira Code', monospace; font-size: 0.75rem; letter-spacing: 0.1em; text-decoration: none; padding: 0.9rem 1rem; transition: opacity 0.2s; }
+    .ap-inquire-btn:hover { opacity: 0.85; }
+    .ap-bio { font-family: 'Noto Sans JP', sans-serif; font-size: 0.95rem; line-height: 1.9; color: rgba(245,242,238,0.8); margin-bottom: 4rem; }
+    .ap-results-title { font-family: 'Fira Code', monospace; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--lime); margin-bottom: 2rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--gray-2); }
+    .ap-year-block { margin-bottom: 2rem; }
+    .ap-year { font-family: 'Archivo Black', sans-serif; font-size: 0.85rem; color: rgba(245,242,238,0.35); margin-bottom: 0.6rem; }
+    .ap-result-item { font-family: 'Inter', sans-serif; font-size: 0.88rem; color: rgba(245,242,238,0.7); padding: 0.45rem 0; border-bottom: 1px solid rgba(245,242,238,0.06); line-height: 1.5; }
+    .ap-result-item:last-child { border-bottom: none; }
+  </style>
+</head>
+<body>
+<nav>
+  <a href="../index.html" class="nav-logo">
+    <img src="../images/logo_fraa.png" alt="FRAA" class="nav-logo-img">
+    <span class="nav-logo-text">Front Row Athlete Agency</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="../index.html">TOP</a></li>
+    <li><a href="../athletes.html">Athletes</a></li>
+    <li><a href="../sponsors.html">For Brands</a></li>
+    <li><a href="../news.html">News &amp; Works</a></li>
+    <li><a href="../index.html#about">About</a></li>
+    <li><a href="../company.html">Company</a></li>
+    <li><a href="../contact.html" class="nav-cta">Contact</a></li>
+  </ul>
+  <button class="nav-hamburger" id="navHamburger" aria-label="メニュー">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <nav class="mobile-menu-nav">
+    <a href="../index.html" class="mobile-menu-link">TOP</a>
+    <a href="../athletes.html" class="mobile-menu-link">Athletes</a>
+    <a href="../sponsors.html" class="mobile-menu-link">For Brands</a>
+    <a href="../news.html" class="mobile-menu-link">News &amp; Works</a>
+    <a href="../index.html#about" class="mobile-menu-link">About</a>
+    <a href="../company.html" class="mobile-menu-link">Company</a>
+    <a href="../contact.html" class="mobile-menu-link cta">Contact</a>
+  </nav>
+</div>
+<a class="mobile-back-btn" href="../athletes.html"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></a>
+
+<section class="ap-hero">
+  <div class="ap-hero-content">
+    <div class="ap-name-en">Naru Nishimoto</div>
+    <div class="ap-name-jp">西本 成良</div>
+    <span class="ap-sport-tag">Street Kendama</span>
+  </div>
+</section>
+
+<div class="ap-main">
+  <aside class="ap-meta">
+    <div class="ap-meta-block">
+      <div class="ap-meta-label">生年月日</div>
+      <div class="ap-meta-value">2016年5月10日</div>
+    </div>
+    <div class="ap-meta-block">
+      <div class="ap-meta-label">出身地</div>
+      <div class="ap-meta-value">福岡県</div>
+    </div>
+    <div class="ap-meta-block">
+      <div class="ap-meta-label">Social</div>
+      <div class="ap-social-links">
+        <a href="https://www.instagram.com/naru_nishimoto/" target="_blank" rel="noopener" class="ap-social-link">
+          <svg class="ap-social-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/></svg>
+          @naru_nishimoto
+        </a>
+        <a href="https://www.youtube.com/@naru0510" target="_blank" rel="noopener" class="ap-social-link">
+          <svg class="ap-social-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M23 7s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.1 2.8 12 2.8 12 2.8s-4.1 0-6.8.2c-.6.1-1.9.1-3 1.3C1.3 5 1 7 1 7S.7 9.1.7 11.3v2c0 2.1.3 4.3.3 4.3s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.3 21.8 12 21.8 12 21.8s4.1 0 6.8-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.1.3-4.3v-2C23.3 9.1 23 7 23 7zM9.7 15.5V8.4l8.1 3.6-8.1 3.5z"/></svg>
+          @naru0510
+        </a>
+      </div>
+    </div>
+    <div class="ap-meta-block">
+      <div class="ap-meta-label">Sponsors</div>
+      <div class="ap-sponsors-list">
+        <span class="ap-sponsor-item">KROM KENDAMA</span>
+        <span class="ap-sponsor-item">Enuma Japan</span>
+      </div>
+    </div>
+    <a href="../contact.html?track=brand&athlete=nishimoto" class="ap-inquire-btn">Contact</a>
+  </aside>
+
+  <div class="ap-content">
+    <div class="ap-bio">
+      <p>2016年5月10日生まれ、福岡県出身。5歳の時お年玉でけん玉を買い、独学で学び始める。</p>
+      <p>2022年4月よりInstagramにて毎日投稿に挑戦中！フォロワー数は5.3万人、投稿数は2,000投稿を超える。自分に課したトリックにチャレンジする様子を発信するうちに、けん玉界に留まらず国内外の子供向けメディアやスポーツ界などのSNS等で紹介される。僅か1年で多数のスポンサーからオファーを受け、現在所属しているデンマークのけん玉ブランド KROM KENDAMAに加入。日本だけでなく、海外の大会でも最年少出場者の記録を持ち、けん玉界を盛り上げるべく活動中。</p>
+    </div>
+    <div class="ap-results">
+      <div class="ap-results-title">戦績 / Highlighted Results</div>
+      <div class="ap-year-block">
+        <div class="ap-year">2025</div>
+        <div class="ap-result-item">NHK『沼にハマってきいてみた』スタジオ出演</div>
+        <div class="ap-result-item">5月 European Kendama Championship - 最年少出場</div>
+        <div class="ap-result-item">11月 KENDAMA WORLD CUP 2025 - 総合10位 / ９歳以下の部 総合1位</div>
+        <div class="ap-result-item">11月 CHIMERA FREESTYLE KENDAMA WORLD CHAMPIONSHIP - オープン部門4位</div>
+      </div>
+      <div class="ap-year-block">
+        <div class="ap-year">2024</div>
+        <div class="ap-result-item">2月 第6回佐賀県けん玉道選手権大会 - クラス別優勝</div>
+        <div class="ap-result-item">6月 リトル・ママフェスタ〜2024スペシャルver.〜inさいたまスーパーアリーナ - パフォーマンス出演</div>
+        <div class="ap-result-item">7月 KENDAMA WORLD CUP - 9歳以下の部 男性1位 / 総合2位</div>
+      </div>
+      <div class="ap-year-block">
+        <div class="ap-year">2023</div>
+        <div class="ap-result-item">7月 KENDAMA WORLD CUP - 9歳以下の部 総合3位</div>
+        <div class="ap-result-item">12月 Freestyle kendama tournament CATCH and FLOW - 最年少出場</div>
+      </div>
+      <div class="ap-year-block">
+        <div class="ap-year">2022</div>
+        <div class="ap-result-item">7月 KENDAMA WORLD CUP - 6歳以下の部 総合2位</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="contact-cta-section">
+  <div class="contact-cta-inner">
+    <div class="section-label">Brand Partnerships</div>
+    <h2 class="section-title" style="margin-bottom: 1rem;">Work With<br>Our <span class="accent">Roster.</span></h2>
+    <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+      <a href="../sponsors.html" class="btn-primary">パートナーシップについて</a>
+      <a href="../contact.html" class="btn-ghost">お問い合わせ</a>
+    </div>
+  </div>
+</section>
+<footer>
+  <div class="footer-inner">
+    <div class="footer-bottom" style="border-top: none; padding-top: 0;">
+      <div class="footer-copy">© 2025 株式会社 Front Row Athlete Agency. All rights reserved.</div>
+      <div class="footer-socials">
+        <a href="https://www.instagram.com/frontrowathleteagency/" target="_blank">Instagram</a>
+        <a href="../index.html">Home</a>
+      </div>
+    </div>
+  </div>
+</footer>
+<script src="../js/main.js"></script>
+</body>
+</html>
